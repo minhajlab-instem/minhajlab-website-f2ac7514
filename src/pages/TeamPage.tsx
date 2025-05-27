@@ -1,7 +1,6 @@
 
-```tsx
 import React from 'react';
-import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile } from 'lucide-react'; // Added FlaskConical, Briefcase, Smile
+import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -11,14 +10,14 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Added Tabs components
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface TeamMember {
   name: string;
   role: string;
-  researchArea?: string; // Replaces bio
-  focus?: string;        // Replaces bio
-  interests?: string;    // New field
+  researchArea?: string;
+  focus?: string;
+  interests?: string;
   imageUrl: string;
   email: string;
   linkedin: string;
@@ -27,7 +26,7 @@ interface TeamMember {
   alumniDetails?: {
     graduationYear?: string;
     currentPosition?: string;
-    durationInLab?: string; // New field for alumni
+    durationInLab?: string;
   };
 }
 
@@ -69,16 +68,16 @@ const teamMembers: TeamMember[] = [
   {
     name: "Samuel Green",
     role: "Former Lab Technician",
-    researchArea: "Lab management and technical support (during tenure).", // Role-specific past focus
+    researchArea: "Lab management and technical support (during tenure).",
     focus: "Ensured smooth lab operations and resource management (during tenure).",
     imageUrl: "https://images.unsplash.com/photo-1622109060009-075a1547c438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGxhYiUyMHRlY2huaWNpYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=300&q=80",
-    email: "samuel.green.alumni@example.com", // Email might not be relevant for alumni display
-    linkedin: "https://linkedin.com/in/samuelgreen", // Not displayed in table but kept in data
+    email: "samuel.green.alumni@example.com",
+    linkedin: "https://linkedin.com/in/samuelgreen",
     status: 'alumni',
     alumniDetails: {
       graduationYear: "2023",
       currentPosition: "Research Scientist at BioSynth Inc.",
-      durationInLab: "2021-2023" // Added duration
+      durationInLab: "2021-2023"
     }
   },
   {
@@ -93,7 +92,7 @@ const teamMembers: TeamMember[] = [
     alumniDetails: {
       graduationYear: "2022",
       currentPosition: "Assistant Professor, Northwood University",
-      durationInLab: "2019-2022" // Added duration
+      durationInLab: "2019-2022"
     }
   }
 ];
@@ -254,5 +253,3 @@ const TeamPage: React.FC = () => {
 };
 
 export default TeamPage;
-```
-
