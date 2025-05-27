@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile, Users, UserCheck } from 'lucide-react';
+import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile, Users, UserCheck, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { teamMembers } from '@/data/teamData';
 import MemberDetailItem from '@/components/team/MemberDetailItem';
@@ -83,9 +82,26 @@ const TeamPage: React.FC = () => {
           </TabsContent>
         </Tabs>
       </section>
+
+      {/* Lab Life Section Link */}
+      <section className="mt-16 py-12 bg-slate-100 rounded-lg shadow-inner">
+        <div className="text-center max-w-2xl mx-auto">
+          <Camera className="h-12 w-12 text-sky-600 mx-auto mb-4" />
+          <h2 className="text-2xl md:text-3xl font-heading font-semibold text-slate-800 mb-4">
+            Discover Our Lab Life
+          </h2>
+          <p className="text-lg font-sans text-slate-600 mb-6">
+            Explore photos from our events, retreats, and everyday life in the lab. See what makes our team unique!
+          </p>
+          <Button asChild size="lg" className="bg-sky-600 hover:bg-sky-700 text-white">
+            <Link to="/lab-life">
+              View Lab Life Gallery
+            </Link>
+          </Button>
+        </div>
+      </section>
     </div>
   );
 };
 
 export default TeamPage;
-
