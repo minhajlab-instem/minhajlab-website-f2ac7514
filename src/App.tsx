@@ -9,8 +9,8 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/Index"; // Renamed for clarity
 import ResearchPage from "./pages/ResearchPage";
 import TeamPage from "./pages/TeamPage";
-import CurrentMembersPage from "./pages/CurrentMembersPage"; // New import
-import AlumniPage from "./pages/AlumniPage"; // New import
+// import CurrentMembersPage from "./pages/CurrentMembersPage"; // Removed
+// import AlumniPage from "./pages/AlumniPage"; // Removed
 import PublicationsPage from "./pages/PublicationsPage";
 import NewsPage from "./pages/NewsPage";
 import ContactPage from "./pages/ContactPage";
@@ -29,8 +29,8 @@ const App = () => (
             <Route path="/" element={<HomePage />} />
             <Route path="/research" element={<ResearchPage />} />
             <Route path="/team" element={<TeamPage />} />
-            <Route path="/team/current" element={<CurrentMembersPage />} /> {/* New route */}
-            <Route path="/team/alumni" element={<AlumniPage />} /> {/* New route */}
+            {/* <Route path="/team/current" element={<CurrentMembersPage />} /> Removed route */}
+            {/* <Route path="/team/alumni" element={<AlumniPage />} /> Removed route */}
             <Route path="/publications" element={<PublicationsPage />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/contact" element={<ContactPage />} />
@@ -43,3 +43,4 @@ const App = () => (
 );
 
 export default App;
+

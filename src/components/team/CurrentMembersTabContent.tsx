@@ -1,25 +1,14 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Linkedin, FlaskConical, Briefcase, Smile, ArrowLeft } from 'lucide-react';
-import { teamMembers, TeamMember } from '@/data/teamData';
+import { Mail, Linkedin, FlaskConical, Briefcase, Smile } from 'lucide-react';
+import { teamMembers } from '@/data/teamData';
 import MemberDetailItem from '@/components/team/MemberDetailItem';
-import { Button } from '@/components/ui/button';
 
-const CurrentMembersPage: React.FC = () => {
+const CurrentMembersTabContent: React.FC = () => {
   const currentMembers = teamMembers.filter(member => member.status === 'current');
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <Button variant="outline" size="sm" asChild className="mb-8">
-        <Link to="/team">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Team Page
-        </Link>
-      </Button>
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-10 text-slate-800">
-        Current Lab Members
-      </h1>
+    <div className="animate-fade-in-up">
       {currentMembers.length > 0 ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {currentMembers.map((member) => (
@@ -53,10 +42,11 @@ const CurrentMembersPage: React.FC = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-slate-500">No current members to display.</p>
+        <p className="text-center text-slate-500 py-8">No current members to display.</p>
       )}
     </div>
   );
 };
 
-export default CurrentMembersPage;
+export default CurrentMembersTabContent;
+

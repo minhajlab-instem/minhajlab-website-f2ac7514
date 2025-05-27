@@ -3,10 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile, Users, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { teamMembers } from '@/data/teamData'; // Import from new data file
-import MemberDetailItem from '@/components/team/MemberDetailItem'; // Import extracted component
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
+import { teamMembers } from '@/data/teamData';
+import MemberDetailItem from '@/components/team/MemberDetailItem';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CurrentMembersTabContent from '@/components/team/CurrentMembersTabContent';
+import AlumniTabContent from '@/components/team/AlumniTabContent';
 
 const TeamPage: React.FC = () => {
   const principalInvestigator = teamMembers.find(member => member.status === 'pi');
@@ -63,46 +64,28 @@ const TeamPage: React.FC = () => {
         </section>
       )}
 
-      {/* Navigation to Current Members and Alumni */}
+      {/* Tabs for Current Members and Alumni */}
       <section className="mb-16">
-        <h2 className="text-2xl md:text-3xl font-heading font-semibold text-slate-800 mb-8 text-center">
-          Explore Our Team
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-sky-700">
-                <Users className="mr-3 h-6 w-6" />
-                Current Members
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-slate-600 mb-4">Meet the talented researchers, students, and staff currently contributing to our lab's innovative work.</p>
-              <Button asChild variant="default">
-                <Link to="/team/current">View Current Members</Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-sky-700">
-                <UserCheck className="mr-3 h-6 w-6" /> {/* Using UserCheck for alumni, more distinct */}
-                Lab Alumni
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-slate-600 mb-4">Discover the achievements of our esteemed alumni and where their careers have taken them.</p>
-              <Button asChild variant="default">
-                <Link to="/team/alumni">View Lab Alumni</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+        <Tabs defaultValue="current" className="w-full max-w-4xl mx-auto">
+          <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsTrigger value="current" className="text-base">
+              <Users className="mr-2 h-5 w-5" /> Current Members
+            </TabsTrigger>
+            <TabsTrigger value="alumni" className="text-base">
+              <UserCheck className="mr-2 h-5 w-5" /> Lab Alumni
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="current">
+            <CurrentMembersTabContent />
+          </TabsContent>
+          <TabsContent value="alumni">
+            <AlumniTabContent />
+          </TabsContent>
+        </Tabs>
       </section>
-
     </div>
   );
 };
 
 export default TeamPage;
+
