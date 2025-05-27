@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
-import { labPhotosData, LabPhoto } from '@/data/labLifeData';
+import { labEventsData, LabEvent } from '@/data/labLifeData'; // Updated import
 import {
   Select,
   SelectContent,
@@ -10,26 +10,26 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tag } from 'lucide-react'; // Using Tag icon as a generic icon for tags
+import { Tag, Images } from 'lucide-react'; // Added Images icon
 
 const LabLifePage: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<string>('all');
   const [selectedTag, setSelectedTag] = useState<string>('all');
 
   const years = useMemo(() => {
-    const uniqueYears = Array.from(new Set(labPhotosData.map(photo => photo.year.toString())));
+    const uniqueYears = Array.from(new Set(labEventsData.map(event => event.year.toString())));
     return ['all', ...uniqueYears.sort((a, b) => parseInt(b) - parseInt(a))];
   }, []);
 
   const tags = useMemo(() => {
-    const allTags = labPhotosData.flatMap(photo => photo.tags);
+    const allTags = labEventsData.flatMap(event => event.tags);
     return ['all', ...Array.from(new Set(allTags)).sort()];
   }, []);
 
-  const filteredPhotos = useMemo(() => {
-    return labPhotosData.filter(photo => {
-      const yearMatch = selectedYear === 'all' || photo.year.toString() === selectedYear;
-      const tagMatch = selectedTag === 'all' || photo.tags.includes(selectedTag);
+  const filteredEvents = useMemo(() => { // Renamed from filteredPhotos
+    return labEventsData.filter(event => {
+      const yearMatch = selectedYear === 'all' || event.year.toString() === selectedYear;
+      const tagMatch = selectedTag === 'all' || event.tags.includes(selectedTag);
       return yearMatch && tagMatch;
     });
   }, [selectedYear, selectedTag]);
@@ -40,7 +40,7 @@ const LabLifePage: React.FC = () => {
         Lab Life & Events
       </h1>
       <p className="text-lg font-sans text-slate-700 mb-10 text-center max-w-3xl mx-auto">
-        A glimpse into our vibrant lab culture, collaborations, and memorable moments.
+        A glimpse into our vibrant lab culture, collaborations, and memorable moments, now organized by event.
       </p>
 
       {/* Filters Section */}
@@ -77,21 +77,36 @@ const LabLifePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Photo Gallery */}
-      {filteredPhotos.length > 0 ? (
+      {/* Event Gallery */}
+      {filteredEvents.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredPhotos.map(photo => (
-            <Card key={photo.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
-              <img src={photo.imageUrl} alt={photo.altText} className="w-full h-60 object-cover" />
+          {filteredEvents.map(event => (
+            <Card key={event.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+              {event.photos.length > 0 ? (
+                <img 
+                  src={event.photos[0].imageUrl} 
+                  alt={event.photos[0].altText || event.title} 
+                  className="w-full h-60 object-cover" 
+                />
+              ) : (
+                <div className="w-full h-60 bg-slate-200 flex items-center justify-center">
+                  <Images className="w-16 h-16 text-slate-400" />
+                </div>
+              )}
               <CardHeader>
-                <CardTitle className="text-lg font-semibold text-sky-700">{photo.altText}</CardTitle>
+                <CardTitle className="text-lg font-semibold text-sky-700">{event.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex-grow">
-                <p className="text-sm text-slate-600 mb-2">{photo.description}</p>
-                <p className="text-xs text-slate-500">Year: {photo.year}</p>
+                <p className="text-sm text-slate-600 mb-2">{event.description}</p>
+                <p className="text-xs text-slate-500 mb-2">Year: {event.year}</p>
+                {event.photos.length > 0 && (
+                  <p className="text-xs text-slate-500">
+                    {event.photos.length} photo{event.photos.length > 1 ? 's' : ''}
+                  </p>
+                )}
               </CardContent>
               <CardFooter className="pt-4 flex flex-wrap gap-2">
-                {photo.tags.map(tag => (
+                {event.tags.map(tag => (
                   <Button key={tag} variant="outline" size="sm" className="text-xs" onClick={() => setSelectedTag(tag)}>
                     <Tag className="mr-1 h-3 w-3" /> {tag.charAt(0).toUpperCase() + tag.slice(1)}
                   </Button>
@@ -101,11 +116,10 @@ const LabLifePage: React.FC = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-slate-500 py-12 text-lg">No photos match your current filters. Try adjusting your selection!</p>
+        <p className="text-center text-slate-500 py-12 text-lg">No events match your current filters. Try adjusting your selection!</p>
       )}
     </div>
   );
 };
 
 export default LabLifePage;
-
