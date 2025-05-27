@@ -1,9 +1,12 @@
-#root {
+
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
+} */
+/* The above default styles might interfere with full-width layouts. 
+   We'll control padding and max-width within specific components. */
 
 .logo {
   height: 6em;
