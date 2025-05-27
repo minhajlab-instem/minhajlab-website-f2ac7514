@@ -1,8 +1,16 @@
 
 import React from 'react';
-import { Link as ExternalLinkIcon } from 'lucide-react'; // Using Link icon for external links
+import { Link as ExternalLinkIcon } from 'lucide-react';
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
 
-const publications = [
+const publicationsData = [
   {
     title: "Novel insights into actin polymerization dynamics during cell migration.",
     authors: "Vance, E., Carter, B., et al.",
@@ -33,41 +41,73 @@ const publications = [
     journal: "Cancer Research",
     year: 2020,
     doi: "10.1158/0008-5472.CAN-20-0004",
-    link: "#"
+    link: "https://doi.org/10.1158/0008-5472.CAN-20-0004" // Example of an actual link
+  }
+  // Adding a new publication for 2024 to test sorting
+   ,{
+    title: "High-Resolution Imaging of Intermediate Filaments in Stressed Cells.",
+    authors: "Kim J., Davis L.",
+    journal: "Biophysical Journal",
+    year: 2024,
+    doi: "10.1016/j.bpj.2024.05.012",
+    link: "https://doi.org/10.1016/j.bpj.2024.05.012"
   }
 ];
 
 const PublicationsPage: React.FC = () => {
+  const sortedPublications = [...publicationsData].sort((a, b) => b.year - a.year);
+
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-slate-800">
-        Our Publications
+      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-slate-800">
+        Laboratory Publications
       </h1>
-      <p className="text-lg font-sans text-slate-700 mb-12 text-center max-w-3xl mx-auto">
-        Explore our contributions to the scientific literature. We are committed to sharing our findings with the broader research community.
+      <p className="text-lg font-sans text-slate-700 mb-10 text-center max-w-3xl mx-auto">
+        A comprehensive chronological list of our research contributions to the scientific community.
       </p>
-      <div className="space-y-8">
-        {publications.map((pub, index) => (
-          <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h2 className="text-xl font-heading font-semibold mb-1 text-sky-700">{pub.title}</h2>
-            <p className="font-sans text-sm text-slate-600 mb-1">{pub.authors}</p>
-            <p className="font-sans text-sm text-slate-500 italic mb-3">
-              {pub.journal}, {pub.year}.
-            </p>
-            {pub.link && pub.link !== "#" ? (
-              <a 
-                href={pub.link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-semibold"
-              >
-                View Publication <ExternalLinkIcon size={16} className="ml-1" />
-              </a>
-            ) : (
-              <span className="text-sm text-slate-400">DOI: {pub.doi} (Link coming soon)</span>
-            )}
-          </div>
-        ))}
+      <div className="overflow-x-auto bg-white p-1 rounded-lg shadow-lg">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[40%] font-semibold text-slate-700">Title</TableHead>
+              <TableHead className="w-[20%] font-semibold text-slate-700">Authors</TableHead>
+              <TableHead className="w-[20%] font-semibold text-slate-700">Journal</TableHead>
+              <TableHead className="w-[10%] text-center font-semibold text-slate-700">Date</TableHead>
+              <TableHead className="text-left w-[10%] font-semibold text-slate-700">DOI / Link</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {sortedPublications.map((pub, index) => (
+              <TableRow key={index} className="hover:bg-slate-50 transition-colors">
+                <TableCell className="font-medium text-sky-700 py-3">{pub.title}</TableCell>
+                <TableCell className="text-slate-600 py-3">{pub.authors}</TableCell>
+                <TableCell className="text-slate-500 italic py-3">{pub.journal}</TableCell>
+                <TableCell className="text-slate-500 text-center py-3">{pub.year}</TableCell>
+                <TableCell className="py-3">
+                  {pub.link && pub.link !== "#" ? (
+                    <a
+                      href={pub.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-medium"
+                    >
+                      {pub.doi} <ExternalLinkIcon size={14} className="ml-1" />
+                    </a>
+                  ) : (
+                    <a
+                      href={`https://doi.org/${pub.doi}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-medium"
+                    >
+                      {pub.doi}
+                    </a>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
