@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 interface NewsItem {
   title: string;
   date: string;
-  timestamp: Date; // For sorting
+  timestamp: Date; 
   category: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   badge?: string; 

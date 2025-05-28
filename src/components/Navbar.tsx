@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-// Removed icon imports as they are no longer used directly for nav items
-import { Menu, X } from 'lucide-react'; 
-import { ThemeToggle } from './ThemeToggle'; // Import ThemeToggle
+import { Menu, X } from 'lucide-react';
+// ThemeToggle import removed
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -36,16 +35,13 @@ const Navbar: React.FC = () => {
                   ${isActive ? 'bg-primary text-primary-foreground' : 'text-foreground/70 hover:text-foreground hover:bg-accent'}`
                 }
               >
-                {/* Icon removed from here */}
                 {item.name}
               </NavLink>
             ))}
-            <div className="ml-4">
-              <ThemeToggle />
-            </div>
+            {/* ThemeToggle removed from here */}
           </div>
           <div className="md:hidden flex items-center">
-            <ThemeToggle />
+            {/* ThemeToggle removed from mobile view */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="ml-2 inline-flex items-center justify-center p-2 rounded-md text-foreground/70 hover:text-foreground hover:bg-accent focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ring"
@@ -72,7 +68,6 @@ const Navbar: React.FC = () => {
                   ${isActive ? 'bg-primary text-primary-foreground' : 'text-foreground/70 hover:text-foreground hover:bg-accent'}`
                 }
               >
-                {/* Icon removed from here */}
                 {item.name}
               </NavLink>
             ))}
@@ -84,3 +79,4 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
+
