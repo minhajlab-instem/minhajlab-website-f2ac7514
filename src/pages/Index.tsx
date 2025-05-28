@@ -1,8 +1,37 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Calendar, Award, Users, Newspaper } from 'lucide-react';
 import ImageSlider from '@/components/ImageSlider';
+
+// Selected news items for homepage display
+const selectedNewsItems = [
+  {
+    title: "Dr. Vance Receives Prestigious Research Grant",
+    date: "May 15, 2025",
+    category: "Award",
+    icon: Award,
+    summary: "Our Principal Investigator has been awarded a significant grant to further investigate cytoskeletal dynamics in neurodegenerative diseases.",
+    badge: "Research Grant"
+  },
+  {
+    title: "Lab Welcomes New Postdoctoral Fellow Dr. Ben Carter",
+    date: "April 28, 2025",
+    category: "Team",
+    icon: Users,
+    summary: "We are thrilled to welcome Dr. Ben Carter to our team, bringing expertise in advanced microscopy and microtubule research.",
+    badge: "New Member"
+  },
+  {
+    title: "Major Breakthrough in Cytoskeletal Dynamics",
+    date: "April 5, 2025",
+    category: "Publication",
+    icon: Newspaper,
+    summary: "Our lab has published a groundbreaking study revealing new insights into the assembly and function of the cytoskeleton.",
+    badge: "Research Highlight"
+  }
+];
 
 const HomePage: React.FC = () => {
   return (
@@ -61,38 +90,53 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Quick Links/Highlights Section */}
+      {/* Latest Updates Section */}
       <section className="py-16 md:py-24 bg-slate-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-2xl font-heading font-semibold mb-3 text-sky-700">Latest News</h3>
-              <p className="font-sans text-slate-600 mb-4">Stay updated with our recent breakthroughs and lab announcements.</p>
-              <Button asChild variant="link" className="text-sky-600 hover:text-sky-800 font-semibold">
-                <Link to="/news">Read More <ArrowRight className="ml-1 h-4 w-4" /></Link>
-              </Button>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-2xl font-heading font-semibold mb-3 text-sky-700">Our Publications</h3>
-              <p className="font-sans text-slate-600 mb-4">Explore our contributions to the scientific community.</p>
-              <Button asChild variant="link" className="text-sky-600 hover:text-sky-800 font-semibold">
-                <Link to="/publications">View Publications <ArrowRight className="ml-1 h-4 w-4" /></Link>
-              </Button>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-2xl font-heading font-semibold mb-3 text-sky-700">Resources</h3>
-              <p className="font-sans text-slate-600 mb-4">Access lab protocols, data, and educational materials.</p>
-              <Button asChild variant="link" className="text-sky-600 hover:text-sky-800 font-semibold">
-                <Link to="/resources">Browse Resources <ArrowRight className="ml-1 h-4 w-4" /></Link>
-              </Button>
-            </div>
-            <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-              <h3 className="text-2xl font-heading font-semibold mb-3 text-sky-700">Join Us</h3>
-              <p className="font-sans text-slate-600 mb-4">Interested in contributing to our research? Discover opportunities.</p>
-              <Button asChild variant="link" className="text-sky-600 hover:text-sky-800 font-semibold">
-                <Link to="/contact">Work With Us <ArrowRight className="ml-1 h-4 w-4" /></Link>
-              </Button>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-slate-800">
+              Latest Lab Updates
+            </h2>
+            <p className="text-lg font-sans text-slate-600 max-w-2xl mx-auto">
+              Stay informed about our recent achievements, new team members, and breakthrough research.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            {selectedNewsItems.map((item, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 rounded-lg bg-sky-100">
+                      <item.icon className="h-5 w-5 text-sky-600" />
+                    </div>
+                    <span className="text-sm text-slate-500 font-medium">
+                      <Calendar size={12} className="inline mr-1" />
+                      {item.date}
+                    </span>
+                  </div>
+                  <span className="inline-block bg-sky-100 text-sky-700 text-xs font-semibold px-2 py-1 rounded">
+                    {item.badge}
+                  </span>
+                </div>
+                
+                <h3 className="text-lg font-heading font-semibold mb-3 text-slate-800 line-clamp-2">
+                  {item.title}
+                </h3>
+                
+                <p className="font-sans text-slate-600 text-sm mb-4 line-clamp-3">
+                  {item.summary}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button asChild className="bg-sky-600 hover:bg-sky-700 text-white font-heading font-semibold px-8 py-3">
+              <Link to="/news">
+                View All Updates <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
