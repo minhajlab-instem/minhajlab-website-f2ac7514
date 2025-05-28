@@ -225,102 +225,255 @@ const NewsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* News Grid */}
+      {/* Timeline */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className={`grid gap-8 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'}`}>
-          {filteredAndSortedItems.map((item, index) => (
-            <Card 
-              key={item.id} 
-              id={`news-${item.id}`}
-              className={`group hover:shadow-2xl transition-all duration-500 border-0 bg-white/70 backdrop-blur-sm overflow-hidden hover:scale-[1.02] ${selectedItemId === item.id ? 'ring-2 ring-blue-500 shadow-2xl' : ''}`}
-            >
-              {/* Image */}
-              {item.image && (
-                <div className="relative h-48 md:h-56 overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        {isMobile ? (
+          // Mobile: Vertical timeline
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500"></div>
+            
+            <div className="space-y-8">
+              {filteredAndSortedItems.map((item, index) => (
+                <div key={item.id} className="relative flex items-start ml-16">
+                  {/* Timeline node */}
+                  <div className="absolute -left-20 top-6 w-4 h-4 bg-white border-4 border-blue-500 rounded-full shadow-lg"></div>
                   
-                  {/* Badge overlay */}
-                  {item.badge && (
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-white/90 text-slate-700 border-0 shadow-lg">
-                        {item.badge}
-                      </Badge>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              <CardHeader className="pb-4">
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 rounded-xl bg-gradient-to-r from-blue-100 to-indigo-100">
-                      <item.icon className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <span className="text-sm text-slate-500 font-medium">
-                      <Calendar size={14} className="inline mr-1.5 -mt-px" />
-                      {item.date}
-                    </span>
-                  </div>
-                </div>
-                
-                <h2 className="text-xl md:text-2xl font-heading font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">
-                  {item.title}
-                </h2>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {item.tags.map(tag => (
-                    <Badge 
-                      key={tag} 
-                      variant="outline" 
-                      className="text-xs bg-slate-50 hover:bg-blue-50 border-slate-200 hover:border-blue-200 transition-colors cursor-pointer"
-                      onClick={() => setFilterTag(tag)}
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Summary */}
-                <p className="font-sans text-slate-600 leading-relaxed line-clamp-3">
-                  {item.summary}
-                </p>
-                
-                {/* Link */}
-                {item.link && (
-                  <div className="pt-2">
-                    {item.link.isExternal ? (
-                      <a 
-                        href={item.link.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm group/link transition-colors"
-                      >
-                        {item.link.text} 
-                        <ExternalLink size={14} className="ml-1.5 transition-transform group-hover/link:translate-x-0.5" />
-                      </a>
-                    ) : (
-                      <Link 
-                        to={item.link.url} 
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm group/link transition-colors"
-                      >
-                        {item.link.text} 
-                        <ExternalLink size={14} className="ml-1.5 transition-transform group-hover/link:translate-x-0.5" />
-                      </Link>
+                  {/* Card */}
+                  <Card 
+                    id={`news-${item.id}`}
+                    className={`group hover:shadow-2xl transition-all duration-500 border-0 bg-white/90 backdrop-blur-sm overflow-hidden hover:scale-[1.02] w-full ${selectedItemId === item.id ? 'ring-2 ring-blue-500 shadow-2xl' : ''}`}
+                  >
+                    {/* Image */}
+                    {item.image && (
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src={item.image} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        
+                        {/* Badge overlay */}
+                        {item.badge && (
+                          <div className="absolute top-4 left-4">
+                            <Badge className="bg-white/90 text-slate-700 border-0 shadow-lg">
+                              {item.badge}
+                            </Badge>
+                          </div>
+                        )}
+                      </div>
                     )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+
+                    <CardHeader className="pb-4">
+                      <div className="flex justify-between items-start mb-3">
+                        <div className="flex items-center space-x-3">
+                          <div className="p-2 rounded-xl bg-gradient-to-r from-blue-100 to-indigo-100">
+                            <item.icon className="h-5 w-5 text-blue-600" />
+                          </div>
+                          <span className="text-sm text-slate-500 font-medium">
+                            <Calendar size={14} className="inline mr-1.5 -mt-px" />
+                            {item.date}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <h2 className="text-xl md:text-2xl font-heading font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">
+                        {item.title}
+                      </h2>
+                    </CardHeader>
+
+                    <CardContent className="space-y-4">
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2">
+                        {item.tags.map(tag => (
+                          <Badge 
+                            key={tag} 
+                            variant="outline" 
+                            className="text-xs bg-slate-50 hover:bg-blue-50 border-slate-200 hover:border-blue-200 transition-colors cursor-pointer"
+                            onClick={() => setFilterTag(tag)}
+                          >
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+
+                      {/* Summary */}
+                      <p className="font-sans text-slate-600 leading-relaxed line-clamp-3">
+                        {item.summary}
+                      </p>
+                      
+                      {/* Link */}
+                      {item.link && (
+                        <div className="pt-2">
+                          {item.link.isExternal ? (
+                            <a 
+                              href={item.link.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm group/link transition-colors"
+                            >
+                              {item.link.text} 
+                              <ExternalLink size={14} className="ml-1.5 transition-transform group-hover/link:translate-x-0.5" />
+                            </a>
+                          ) : (
+                            <Link 
+                              to={item.link.url} 
+                              className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm group/link transition-colors"
+                            >
+                              {item.link.text} 
+                              <ExternalLink size={14} className="ml-1.5 transition-transform group-hover/link:translate-x-0.5" />
+                            </Link>
+                          )}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          // Desktop: Horizontal timeline with branching cards
+          <div className="relative overflow-x-auto pb-8">
+            <div className="flex items-center justify-center min-w-max px-8">
+              {/* Main timeline container */}
+              <div className="relative" style={{ width: `${filteredAndSortedItems.length * 400 + 200}px` }}>
+                {/* Horizontal timeline line */}
+                <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 transform -translate-y-1/2"></div>
+                
+                {/* Timeline items */}
+                <div className="relative h-[800px] flex justify-between items-center">
+                  {filteredAndSortedItems.map((item, index) => {
+                    const isAbove = index % 2 === 0;
+                    const leftPosition = (index / (filteredAndSortedItems.length - 1)) * 100;
+                    
+                    return (
+                      <div
+                        key={item.id}
+                        className="absolute flex flex-col items-center"
+                        style={{ 
+                          left: `${leftPosition}%`,
+                          transform: 'translateX(-50%)',
+                          top: isAbove ? '0%' : '50%'
+                        }}
+                      >
+                        {/* Branch line */}
+                        <div 
+                          className={`w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500 ${
+                            isAbove ? 'h-48' : 'h-48 mt-0.5'
+                          }`}
+                        ></div>
+                        
+                        {/* Timeline node */}
+                        <div className="absolute w-4 h-4 bg-white border-4 border-blue-500 rounded-full shadow-lg z-10" 
+                             style={{ top: isAbove ? '192px' : '-8px' }}></div>
+                        
+                        {/* Card */}
+                        <Card 
+                          id={`news-${item.id}`}
+                          className={`group hover:shadow-2xl transition-all duration-500 border-0 bg-white/90 backdrop-blur-sm overflow-hidden hover:scale-[1.02] w-80 ${
+                            selectedItemId === item.id ? 'ring-2 ring-blue-500 shadow-2xl' : ''
+                          } ${isAbove ? 'mb-4' : 'mt-4'}`}
+                        >
+                          {/* Image */}
+                          {item.image && (
+                            <div className="relative h-40 overflow-hidden">
+                              <img 
+                                src={item.image} 
+                                alt={item.title} 
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                              
+                              {/* Badge overlay */}
+                              {item.badge && (
+                                <div className="absolute top-3 left-3">
+                                  <Badge className="bg-white/90 text-slate-700 border-0 shadow-lg text-xs">
+                                    {item.badge}
+                                  </Badge>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          <CardHeader className="pb-3">
+                            <div className="flex justify-between items-start mb-2">
+                              <div className="flex items-center space-x-2">
+                                <div className="p-1.5 rounded-lg bg-gradient-to-r from-blue-100 to-indigo-100">
+                                  <item.icon className="h-4 w-4 text-blue-600" />
+                                </div>
+                                <span className="text-xs text-slate-500 font-medium">
+                                  <Calendar size={12} className="inline mr-1 -mt-px" />
+                                  {item.date}
+                                </span>
+                              </div>
+                            </div>
+                            
+                            <h2 className="text-lg font-heading font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">
+                              {item.title}
+                            </h2>
+                          </CardHeader>
+
+                          <CardContent className="space-y-3 pt-0">
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-1">
+                              {item.tags.slice(0, 3).map(tag => (
+                                <Badge 
+                                  key={tag} 
+                                  variant="outline" 
+                                  className="text-xs bg-slate-50 hover:bg-blue-50 border-slate-200 hover:border-blue-200 transition-colors cursor-pointer px-2 py-0.5"
+                                  onClick={() => setFilterTag(tag)}
+                                >
+                                  {tag}
+                                </Badge>
+                              ))}
+                              {item.tags.length > 3 && (
+                                <Badge variant="outline" className="text-xs bg-slate-50 border-slate-200 px-2 py-0.5">
+                                  +{item.tags.length - 3}
+                                </Badge>
+                              )}
+                            </div>
+
+                            {/* Summary */}
+                            <p className="font-sans text-slate-600 leading-relaxed text-sm line-clamp-3">
+                              {item.summary}
+                            </p>
+                            
+                            {/* Link */}
+                            {item.link && (
+                              <div className="pt-1">
+                                {item.link.isExternal ? (
+                                  <a 
+                                    href={item.link.url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm group/link transition-colors"
+                                  >
+                                    {item.link.text} 
+                                    <ExternalLink size={12} className="ml-1 transition-transform group-hover/link:translate-x-0.5" />
+                                  </a>
+                                ) : (
+                                  <Link 
+                                    to={item.link.url} 
+                                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold text-sm group/link transition-colors"
+                                  >
+                                    {item.link.text} 
+                                    <ExternalLink size={12} className="ml-1 transition-transform group-hover/link:translate-x-0.5" />
+                                  </Link>
+                                )}
+                              </div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {filteredAndSortedItems.length === 0 && (
           <div className="text-center py-16">
