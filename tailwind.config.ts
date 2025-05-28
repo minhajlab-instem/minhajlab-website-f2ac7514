@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,8 +19,8 @@ export default {
 		},
 		extend: {
       fontFamily: {
-        sans: ['Open Sans', 'sans-serif'],
-        heading: ['Montserrat', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Inter', 'sans-serif'],
       },
 			colors: {
 				border: 'hsl(var(--border))',
@@ -30,13 +29,13 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))', // Keep existing or update e.g. 'hsl(210, 70%, 50%)'
+					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
-        lab_blue: { // Example custom color
-          light: '#E0F2FE', // sky-100
-          DEFAULT: '#0EA5E9', // sky-500
-          dark: '#0369A1', // sky-700
+        lab_blue: {
+          light: '#E0F2FE',
+          DEFAULT: '#0EA5E9',
+          dark: '#0369A1',
         },
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
