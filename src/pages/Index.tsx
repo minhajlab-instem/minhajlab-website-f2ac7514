@@ -1,15 +1,16 @@
-
 import React from 'react';
-import { Button } from '@/components/ui/button'; // Assuming Button from shadcn is available
+import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import ImageSlider from '@/components/ImageSlider';
 
 const HomePage: React.FC = () => {
   return (
     <div className="animate-fade-in-up">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-sky-600 to-sky-800 text-white py-20 md:py-32">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Hero Section with Background Slider */}
+      <section className="relative bg-gradient-to-r from-sky-600 to-sky-800 text-white py-20 md:py-32 overflow-hidden">
+        <ImageSlider />
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
             Unraveling the Mysteries of the Cytoskeleton
           </h1>
@@ -60,10 +61,10 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Quick Links/Highlights Section (Optional) */}
+      {/* Quick Links/Highlights Section */}
       <section className="py-16 md:py-24 bg-slate-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="grid md:grid-cols-4 gap-8 text-center">
             <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
               <h3 className="text-2xl font-heading font-semibold mb-3 text-sky-700">Latest News</h3>
               <p className="font-sans text-slate-600 mb-4">Stay updated with our recent breakthroughs and lab announcements.</p>
@@ -76,6 +77,13 @@ const HomePage: React.FC = () => {
               <p className="font-sans text-slate-600 mb-4">Explore our contributions to the scientific community.</p>
               <Button asChild variant="link" className="text-sky-600 hover:text-sky-800 font-semibold">
                 <Link to="/publications">View Publications <ArrowRight className="ml-1 h-4 w-4" /></Link>
+              </Button>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+              <h3 className="text-2xl font-heading font-semibold mb-3 text-sky-700">Resources</h3>
+              <p className="font-sans text-slate-600 mb-4">Access lab protocols, data, and educational materials.</p>
+              <Button asChild variant="link" className="text-sky-600 hover:text-sky-800 font-semibold">
+                <Link to="/resources">Browse Resources <ArrowRight className="ml-1 h-4 w-4" /></Link>
               </Button>
             </div>
             <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
