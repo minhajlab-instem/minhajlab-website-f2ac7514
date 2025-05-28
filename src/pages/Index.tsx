@@ -8,6 +8,7 @@ import ImageSlider from '@/components/ImageSlider';
 // Selected news items for homepage display
 const selectedNewsItems = [
   {
+    id: "grant-2025",
     title: "Dr. Vance Receives Prestigious Research Grant",
     date: "May 15, 2025",
     category: "Award",
@@ -16,6 +17,7 @@ const selectedNewsItems = [
     badge: "Research Grant"
   },
   {
+    id: "new-member-carter",
     title: "Lab Welcomes New Postdoctoral Fellow Dr. Ben Carter",
     date: "April 28, 2025",
     category: "Team",
@@ -24,6 +26,7 @@ const selectedNewsItems = [
     badge: "New Member"
   },
   {
+    id: "breakthrough-2025",
     title: "Major Breakthrough in Cytoskeletal Dynamics",
     date: "April 5, 2025",
     category: "Publication",
@@ -104,7 +107,11 @@ const HomePage: React.FC = () => {
           
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             {selectedNewsItems.map((item, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6">
+              <Link 
+                key={index} 
+                to={`/news?id=${item.id}`}
+                className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 block group cursor-pointer transform hover:scale-105"
+              >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     <div className="p-2 rounded-lg bg-sky-100">
@@ -120,14 +127,18 @@ const HomePage: React.FC = () => {
                   </span>
                 </div>
                 
-                <h3 className="text-lg font-heading font-semibold mb-3 text-slate-800 line-clamp-2">
+                <h3 className="text-lg font-heading font-semibold mb-3 text-slate-800 line-clamp-2 group-hover:text-sky-700 transition-colors">
                   {item.title}
                 </h3>
                 
                 <p className="font-sans text-slate-600 text-sm mb-4 line-clamp-3">
                   {item.summary}
                 </p>
-              </div>
+
+                <div className="text-sky-600 text-sm font-medium group-hover:text-sky-700 transition-colors">
+                  Read more <ArrowRight className="inline h-4 w-4 ml-1" />
+                </div>
+              </Link>
             ))}
           </div>
 
