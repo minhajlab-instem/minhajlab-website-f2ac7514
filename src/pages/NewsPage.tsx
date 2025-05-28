@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Calendar, Award, Users, Newspaper, Twitter, ExternalLink, ChevronDown, Filter } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -230,7 +231,7 @@ const NewsPage: React.FC = () => {
           {/* Central vertical line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-indigo-500 transform -translate-x-1/2 z-10"></div>
           
-          <div className="space-y-16">
+          <div className="space-y-8">
             {filteredAndSortedItems.map((item, index) => {
               const isLeft = index % 2 === 0;
               
@@ -243,14 +244,14 @@ const NewsPage: React.FC = () => {
                   
                   {/* Branch line */}
                   <div 
-                    className={`absolute top-1/2 w-16 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 transform -translate-y-1/2 z-10 ${
+                    className={`absolute top-1/2 w-12 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 transform -translate-y-1/2 z-10 ${
                       isLeft ? 'right-1/2 -mr-3' : 'left-1/2 -ml-3'
                     }`}
                   ></div>
                   
                   {/* Date indicator */}
                   <div className={`absolute top-1/2 transform -translate-y-1/2 z-20 ${
-                    isLeft ? 'left-1/2 ml-8' : 'right-1/2 mr-8'
+                    isLeft ? 'left-1/2 ml-6' : 'right-1/2 mr-6'
                   }`}>
                     <div className="bg-white px-3 py-1 rounded-full shadow-md border border-slate-200">
                       <span className="text-sm font-medium text-slate-600">{item.date}</span>
@@ -258,8 +259,8 @@ const NewsPage: React.FC = () => {
                   </div>
                   
                   {/* Card */}
-                  <div className={`w-full flex ${isLeft ? 'justify-start pr-8' : 'justify-end pl-8'}`}>
-                    <div className={`w-full max-w-md ${isLeft ? 'mr-16' : 'ml-16'}`}>
+                  <div className={`w-full flex ${isLeft ? 'justify-start pr-4' : 'justify-end pl-4'}`}>
+                    <div className={`w-full max-w-md ${isLeft ? 'mr-8' : 'ml-8'}`}>
                       <Card 
                         id={`news-${item.id}`}
                         className={`group hover:shadow-2xl transition-all duration-500 border-0 bg-white/95 backdrop-blur-sm overflow-hidden hover:scale-[1.02] ${
