@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile, Users, UserCheck, Camera } from 'lucide-react';
@@ -27,11 +28,29 @@ const TeamPage: React.FC = () => {
             Principal Investigator
           </h2>
           <div className="bg-white p-6 md:p-8 rounded-lg shadow-xl max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
-            <img 
-              src={principalInvestigator.imageUrl} 
-              alt={principalInvestigator.name} 
-              className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-md"
-            />
+            <div className="flex flex-col items-center">
+              <img 
+                src={principalInvestigator.imageUrl} 
+                alt={principalInvestigator.name} 
+                className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-md mb-4"
+              />
+              
+              <div className="flex justify-center space-x-4 mb-4">
+                <a href={principalInvestigator.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-sky-600 transition-colors" aria-label="LinkedIn">
+                  <Linkedin size={24} />
+                </a>
+              </div>
+              
+              {principalInvestigator.cvUrl && (
+                <Button asChild variant="outline" size="sm">
+                  <a href={principalInvestigator.cvUrl} download>
+                    <Download size={18} className="mr-2" />
+                    Download CV
+                  </a>
+                </Button>
+              )}
+            </div>
+            
             <div className="text-center md:text-left flex-grow">
               <h3 className="text-2xl font-heading font-bold text-sky-700 mb-1">{principalInvestigator.name}</h3>
               <p className="text-md font-sans text-slate-500 mb-4">{principalInvestigator.role}</p>
@@ -44,20 +63,6 @@ const TeamPage: React.FC = () => {
               <MemberDetailItem icon={FlaskConical} label="Research Area" value={principalInvestigator.researchArea} />
               <MemberDetailItem icon={Briefcase} label="Focus" value={principalInvestigator.focus} />
               <MemberDetailItem icon={Smile} label="Interests" value={principalInvestigator.interests} />
-
-              <div className="flex justify-center md:justify-start space-x-4 mt-4 mb-4">
-                <a href={principalInvestigator.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-sky-600 transition-colors" aria-label="LinkedIn">
-                  <Linkedin size={24} />
-                </a>
-              </div>
-              {principalInvestigator.cvUrl && (
-                <Button asChild variant="outline" size="sm">
-                  <a href={principalInvestigator.cvUrl} download>
-                    <Download size={18} className="mr-2" />
-                    Download CV
-                  </a>
-                </Button>
-              )}
             </div>
           </div>
         </section>
