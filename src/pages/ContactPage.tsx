@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapPin, Phone, Mail as MailIcon, Navigation, ZoomIn, ZoomOut, Layers, GraduationCap, Users, BookOpen, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,42 +20,46 @@ const ContactPage: React.FC = () => {
       <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-slate-800">
         Get In Touch
       </h1>
-      <div className="grid md:grid-cols-2 gap-12 items-start">
-        {/* Contact Information & Map */}
-        <div className="bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-heading font-semibold mb-6 text-sky-700">Contact Information</h2>
-          <div className="space-y-4 font-sans text-slate-700 mb-8">
-            <div className="flex items-start">
-              <MapPin size={24} className="mr-3 mt-1 text-sky-600" />
-              <div>
-                <h3 className="font-semibold">Our Address</h3>
-                <p>123 Research Parkway, Science City, ST 98765, USA</p>
+      
+      {/* Contact Information & Map Panel */}
+      <div className="bg-white p-8 rounded-lg shadow-lg mb-12">
+        <h2 className="text-2xl font-heading font-semibold mb-6 text-sky-700">Contact Information</h2>
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Contact Information */}
+          <div>
+            <div className="space-y-4 font-sans text-slate-700 mb-8">
+              <div className="flex items-start">
+                <MapPin size={24} className="mr-3 mt-1 text-sky-600" />
+                <div>
+                  <h3 className="font-semibold">Our Address</h3>
+                  <p>123 Research Parkway, Science City, ST 98765, USA</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <MailIcon size={24} className="mr-3 mt-1 text-sky-600" />
+                <div>
+                  <h3 className="font-semibold">Email Us</h3>
+                  <p>info@cytoskeletonlab.example.com</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <Phone size={24} className="mr-3 mt-1 text-sky-600" />
+                <div>
+                  <h3 className="font-semibold">Call Us</h3>
+                  <p>+1 (555) 123-4567</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-start">
-              <MailIcon size={24} className="mr-3 mt-1 text-sky-600" />
-              <div>
-                <h3 className="font-semibold">Email Us</h3>
-                <p>info@cytoskeletonlab.example.com</p>
-              </div>
+            
+            <div>
+              <h3 className="text-xl font-heading font-semibold mb-3 text-sky-700">Lab Hours</h3>
+              <p className="font-sans text-slate-700">Monday - Friday: 9:00 AM - 5:00 PM</p>
+              <p className="font-sans text-slate-700">Weekends: Closed</p>
             </div>
-            <div className="flex items-start">
-              <Phone size={24} className="mr-3 mt-1 text-sky-600" />
-              <div>
-                <h3 className="font-semibold">Call Us</h3>
-                <p>+1 (555) 123-4567</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mb-8">
-            <h3 className="text-xl font-heading font-semibold mb-3 text-sky-700">Lab Hours</h3>
-            <p className="font-sans text-slate-700">Monday - Friday: 9:00 AM - 5:00 PM</p>
-            <p className="font-sans text-slate-700">Weekends: Closed</p>
           </div>
 
           {/* Interactive Map */}
-          <div className="mt-8">
+          <div>
             <h3 className="text-xl font-heading font-semibold mb-4 text-sky-700">Find Our Lab</h3>
             <div className="relative aspect-w-16 aspect-h-9 bg-slate-100 rounded-md overflow-hidden" style={{ height: '300px' }}>
               {/* Map Controls */}
@@ -137,6 +142,149 @@ const ContactPage: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Join the Lab & Contact Form Side by Side */}
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* Join the Lab Section */}
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-heading font-semibold mb-6 text-sky-700">Join Our Lab</h2>
+          <p className="text-slate-600 mb-6 font-sans">
+            We welcome passionate researchers at all career stages to join our dynamic cytoskeleton research team.
+          </p>
+          
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="msc-students">
+              <AccordionTrigger className="text-left">
+                <div className="flex items-center">
+                  <GraduationCap className="mr-3 text-sky-600" size={20} />
+                  <span className="font-heading font-semibold">MSc Project Students</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4 text-slate-700 font-sans">
+                  <p><strong>Duration:</strong> 6-12 months</p>
+                  <p><strong>Requirements:</strong></p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Currently enrolled in a relevant MSc program (Biology, Biochemistry, Cell Biology, etc.)</li>
+                    <li>Strong academic record (GPA ≥ 3.5)</li>
+                    <li>Basic laboratory experience preferred</li>
+                    <li>Commitment to full-time research during project period</li>
+                  </ul>
+                  <p><strong>Application Process:</strong></p>
+                  <ol className="list-decimal list-inside space-y-1 ml-4">
+                    <li>Email CV and cover letter to PI</li>
+                    <li>Include academic transcripts</li>
+                    <li>Provide contact information for 2 academic references</li>
+                    <li>Schedule an interview if shortlisted</li>
+                  </ol>
+                  <p className="text-sky-600 font-semibold">Application Deadline: Rolling basis, apply 3-6 months before intended start date</p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="project-associates">
+              <AccordionTrigger className="text-left">
+                <div className="flex items-center">
+                  <Users className="mr-3 text-sky-600" size={20} />
+                  <span className="font-heading font-semibold">Project Associates</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4 text-slate-700 font-sans">
+                  <p><strong>Duration:</strong> 1-2 years (renewable)</p>
+                  <p><strong>Requirements:</strong></p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>BSc/MSc in relevant field</li>
+                    <li>2+ years of research experience</li>
+                    <li>Proficiency in cell culture and microscopy techniques</li>
+                    <li>Experience with molecular biology techniques</li>
+                    <li>Strong publication record preferred</li>
+                  </ul>
+                  <p><strong>Application Process:</strong></p>
+                  <ol className="list-decimal list-inside space-y-1 ml-4">
+                    <li>Submit detailed CV with publication list</li>
+                    <li>Cover letter outlining research interests and career goals</li>
+                    <li>Provide contact details for 3 professional references</li>
+                    <li>Present research seminar if invited</li>
+                  </ol>
+                  <p className="text-sky-600 font-semibold">Positions available based on funding - check our website for current openings</p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="phd-students">
+              <AccordionTrigger className="text-left">
+                <div className="flex items-center">
+                  <BookOpen className="mr-3 text-sky-600" size={20} />
+                  <span className="font-heading font-semibold">PhD Students</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4 text-slate-700 font-sans">
+                  <p><strong>Duration:</strong> 4-5 years</p>
+                  <p><strong>Requirements:</strong></p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>MSc in Cell Biology, Biochemistry, or related field</li>
+                    <li>Excellent academic record</li>
+                    <li>Research experience in cell biology or related area</li>
+                    <li>Strong motivation for independent research</li>
+                    <li>Good written and oral communication skills</li>
+                  </ul>
+                  <p><strong>Application Process:</strong></p>
+                  <ol className="list-decimal list-inside space-y-1 ml-4">
+                    <li>Apply through university graduate school</li>
+                    <li>Submit research proposal (2-3 pages)</li>
+                    <li>Provide academic transcripts and test scores</li>
+                    <li>Submit 3 letters of recommendation</li>
+                    <li>Interview with lab members and PI</li>
+                  </ol>
+                  <p><strong>Funding:</strong> Stipend + tuition coverage available for qualified candidates</p>
+                  <p className="text-sky-600 font-semibold">Application Deadline: January 15th for Fall admission</p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="postdocs">
+              <AccordionTrigger className="text-left">
+                <div className="flex items-center">
+                  <Award className="mr-3 text-sky-600" size={20} />
+                  <span className="font-heading font-semibold">Postdoctoral Fellows</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-4 text-slate-700 font-sans">
+                  <p><strong>Duration:</strong> 2-4 years</p>
+                  <p><strong>Requirements:</strong></p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>PhD in Cell Biology, Biochemistry, Biophysics, or related field</li>
+                    <li>Strong publication record in peer-reviewed journals</li>
+                    <li>Expertise in cytoskeleton research preferred</li>
+                    <li>Experience with advanced microscopy techniques</li>
+                    <li>Ability to work independently and mentor students</li>
+                  </ul>
+                  <p><strong>Application Process:</strong></p>
+                  <ol className="list-decimal list-inside space-y-1 ml-4">
+                    <li>Email detailed CV with complete publication list</li>
+                    <li>Research statement (2 pages) outlining future goals</li>
+                    <li>Arrange for 3 reference letters to be sent directly</li>
+                    <li>Present job talk if invited</li>
+                  </ol>
+                  <p><strong>Benefits:</strong> Competitive salary, health insurance, conference travel support</p>
+                  <p className="text-sky-600 font-semibold">Applications accepted year-round - contact PI directly</p>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+            <p className="text-slate-700 font-sans text-sm">
+              <strong>General Note:</strong> All positions require a commitment to collaborative research, scientific integrity, 
+              and contributing to a positive lab environment. We particularly encourage applications from underrepresented 
+              groups in science.
+            </p>
+          </div>
+        </div>
 
         {/* Contact Form */}
         <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -164,146 +312,6 @@ const ContactPage: React.FC = () => {
               </Button>
             </div>
           </form>
-        </div>
-      </div>
-
-      {/* Join the Lab Section */}
-      <div className="mt-16 bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-heading font-semibold mb-6 text-center text-sky-700">Join Our Lab</h2>
-        <p className="text-slate-600 text-center mb-8 font-sans">
-          We welcome passionate researchers at all career stages to join our dynamic cytoskeleton research team.
-        </p>
-        
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="msc-students">
-            <AccordionTrigger className="text-left">
-              <div className="flex items-center">
-                <GraduationCap className="mr-3 text-sky-600" size={20} />
-                <span className="font-heading font-semibold">MSc Project Students</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-4 text-slate-700 font-sans">
-                <p><strong>Duration:</strong> 6-12 months</p>
-                <p><strong>Requirements:</strong></p>
-                <ul className="list-disc list-inside space-y-1 ml-4">
-                  <li>Currently enrolled in a relevant MSc program (Biology, Biochemistry, Cell Biology, etc.)</li>
-                  <li>Strong academic record (GPA ≥ 3.5)</li>
-                  <li>Basic laboratory experience preferred</li>
-                  <li>Commitment to full-time research during project period</li>
-                </ul>
-                <p><strong>Application Process:</strong></p>
-                <ol className="list-decimal list-inside space-y-1 ml-4">
-                  <li>Email CV and cover letter to PI</li>
-                  <li>Include academic transcripts</li>
-                  <li>Provide contact information for 2 academic references</li>
-                  <li>Schedule an interview if shortlisted</li>
-                </ol>
-                <p className="text-sky-600 font-semibold">Application Deadline: Rolling basis, apply 3-6 months before intended start date</p>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="project-associates">
-            <AccordionTrigger className="text-left">
-              <div className="flex items-center">
-                <Users className="mr-3 text-sky-600" size={20} />
-                <span className="font-heading font-semibold">Project Associates</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-4 text-slate-700 font-sans">
-                <p><strong>Duration:</strong> 1-2 years (renewable)</p>
-                <p><strong>Requirements:</strong></p>
-                <ul className="list-disc list-inside space-y-1 ml-4">
-                  <li>BSc/MSc in relevant field</li>
-                  <li>2+ years of research experience</li>
-                  <li>Proficiency in cell culture and microscopy techniques</li>
-                  <li>Experience with molecular biology techniques</li>
-                  <li>Strong publication record preferred</li>
-                </ul>
-                <p><strong>Application Process:</strong></p>
-                <ol className="list-decimal list-inside space-y-1 ml-4">
-                  <li>Submit detailed CV with publication list</li>
-                  <li>Cover letter outlining research interests and career goals</li>
-                  <li>Provide contact details for 3 professional references</li>
-                  <li>Present research seminar if invited</li>
-                </ol>
-                <p className="text-sky-600 font-semibold">Positions available based on funding - check our website for current openings</p>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="phd-students">
-            <AccordionTrigger className="text-left">
-              <div className="flex items-center">
-                <BookOpen className="mr-3 text-sky-600" size={20} />
-                <span className="font-heading font-semibold">PhD Students</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-4 text-slate-700 font-sans">
-                <p><strong>Duration:</strong> 4-5 years</p>
-                <p><strong>Requirements:</strong></p>
-                <ul className="list-disc list-inside space-y-1 ml-4">
-                  <li>MSc in Cell Biology, Biochemistry, or related field</li>
-                  <li>Excellent academic record</li>
-                  <li>Research experience in cell biology or related area</li>
-                  <li>Strong motivation for independent research</li>
-                  <li>Good written and oral communication skills</li>
-                </ul>
-                <p><strong>Application Process:</strong></p>
-                <ol className="list-decimal list-inside space-y-1 ml-4">
-                  <li>Apply through university graduate school</li>
-                  <li>Submit research proposal (2-3 pages)</li>
-                  <li>Provide academic transcripts and test scores</li>
-                  <li>Submit 3 letters of recommendation</li>
-                  <li>Interview with lab members and PI</li>
-                </ol>
-                <p><strong>Funding:</strong> Stipend + tuition coverage available for qualified candidates</p>
-                <p className="text-sky-600 font-semibold">Application Deadline: January 15th for Fall admission</p>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-
-          <AccordionItem value="postdocs">
-            <AccordionTrigger className="text-left">
-              <div className="flex items-center">
-                <Award className="mr-3 text-sky-600" size={20} />
-                <span className="font-heading font-semibold">Postdoctoral Fellows</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="space-y-4 text-slate-700 font-sans">
-                <p><strong>Duration:</strong> 2-4 years</p>
-                <p><strong>Requirements:</strong></p>
-                <ul className="list-disc list-inside space-y-1 ml-4">
-                  <li>PhD in Cell Biology, Biochemistry, Biophysics, or related field</li>
-                  <li>Strong publication record in peer-reviewed journals</li>
-                  <li>Expertise in cytoskeleton research preferred</li>
-                  <li>Experience with advanced microscopy techniques</li>
-                  <li>Ability to work independently and mentor students</li>
-                </ul>
-                <p><strong>Application Process:</strong></p>
-                <ol className="list-decimal list-inside space-y-1 ml-4">
-                  <li>Email detailed CV with complete publication list</li>
-                  <li>Research statement (2 pages) outlining future goals</li>
-                  <li>Arrange for 3 reference letters to be sent directly</li>
-                  <li>Present job talk if invited</li>
-                </ol>
-                <p><strong>Benefits:</strong> Competitive salary, health insurance, conference travel support</p>
-                <p className="text-sky-600 font-semibold">Applications accepted year-round - contact PI directly</p>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-
-        <div className="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
-          <p className="text-slate-700 font-sans">
-            <strong>General Note:</strong> All positions require a commitment to collaborative research, scientific integrity, 
-            and contributing to a positive lab environment. We particularly encourage applications from underrepresented 
-            groups in science.
-          </p>
         </div>
       </div>
     </div>
