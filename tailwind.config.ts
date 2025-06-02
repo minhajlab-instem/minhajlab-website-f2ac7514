@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,8 +20,12 @@ export default {
 		},
 		extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Inter', 'sans-serif'],
+        heading: ['Merriweather', 'serif'], // H1-H3
+        subheading: ['Inter', 'sans-serif'], // H4-H6
+        body: ['Inter', 'sans-serif'], // Body text
+        ui: ['Inter', 'sans-serif'], // Navigation/UI
+        mono: ['Roboto Mono', 'monospace'], // Citations/Code
+        sans: ['Inter', 'sans-serif'], // Default sans
       },
 			colors: {
 				border: 'hsl(var(--border))',
@@ -32,10 +37,31 @@ export default {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
-        lab_blue: {
-          light: '#E0F2FE',
-          DEFAULT: '#0EA5E9',
-          dark: '#0369A1',
+        // Custom color palette
+        midnight: {
+          DEFAULT: '#00274D', // Primary - Midnight Blue
+          light: '#003366',
+          dark: '#001a33',
+        },
+        cool_gray: {
+          DEFAULT: '#E5E9F0', // Secondary - Light Cool Gray
+          light: '#F0F3F7',
+          dark: '#D1D8E0',
+        },
+        golden: {
+          DEFAULT: '#F9B233', // Accent - Golden Yellow
+          light: '#FBC550',
+          dark: '#E09A1A',
+        },
+        neutral_gray: {
+          DEFAULT: '#F7F7F7', // Neutral - Very Light Gray
+          light: '#FAFAFA',
+          dark: '#F0F0F0',
+        },
+        rich_black: {
+          DEFAULT: '#1C1C1C', // Text - Rich Black
+          light: '#2A2A2A',
+          dark: '#0E0E0E',
         },
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
