@@ -236,10 +236,7 @@ const FundingPage: React.FC = () => {
 
         {/* Current Lab Funding */}
         <section>
-          <div className="flex items-center space-x-3 mb-6">
-            <Award className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-heading font-bold">Current Lab Funding</h2>
-          </div>
+          
           
           <Card>
             <CardHeader>
