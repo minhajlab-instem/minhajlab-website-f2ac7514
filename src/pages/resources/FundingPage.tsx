@@ -152,24 +152,7 @@ const FundingPage: React.FC = () => {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div>
-                      <span className="text-sm font-medium text-slate-700">Expertise:</span>
-                      <p className="text-sm text-slate-600">{collaborator.expertise}</p>
-                    </div>
-                    <div>
-                      <span className="text-sm font-medium text-slate-700">Collaboration:</span>
-                      <p className="text-sm text-slate-600">{collaborator.collaboration}</p>
-                    </div>
-                    <Button size="sm" variant="outline" asChild className="w-full">
-                      <a href={collaborator.website} target="_blank" rel="noopener noreferrer">
-                        <Globe className="h-4 w-4 mr-2" />
-                        Visit Institution
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
+                
               </Card>)}
           </div>
         </section>
