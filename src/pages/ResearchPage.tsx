@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link as LinkIcon, Users, Heart, University, Building, Globe } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -137,12 +136,23 @@ const ResearchPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-slate-800">
-        Our Research Focus
-      </h1>
-      <p className="text-lg font-sans text-slate-700 mb-12 text-center max-w-3xl mx-auto">
-        Our laboratory is at the forefront of cytoskeleton research, utilizing a multidisciplinary approach to unravel the complex mechanisms governing cellular structure and function. We explore how these dynamic protein networks drive essential biological processes.
-      </p>
+      {/* Title with Background Illustration */}
+      <div className="relative mb-12">
+        {/* Background Line Art - Research/DNA/Molecular Structure */}
+        <div 
+          className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M100 100 Q200 60 300 100 T500 100 T700 100 T900 100 T1100 100' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='150' cy='80' r='6' fill='%23334155'/%3E%3Ccircle cx='250' cy='120' r='6' fill='%23334155'/%3E%3Ccircle cx='350' cy='80' r='6' fill='%23334155'/%3E%3Ccircle cx='450' cy='120' r='6' fill='%23334155'/%3E%3Ccircle cx='550' cy='80' r='6' fill='%23334155'/%3E%3Ccircle cx='650' cy='120' r='6' fill='%23334155'/%3E%3Ccircle cx='750' cy='80' r='6' fill='%23334155'/%3E%3Ccircle cx='850' cy='120' r='6' fill='%23334155'/%3E%3Ccircle cx='950' cy='80' r='6' fill='%23334155'/%3E%3Cpath d='M150 74 L150 86 M144 80 L156 80' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M350 74 L350 86 M344 80 L356 80' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M550 74 L550 86 M544 80 L556 80' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M750 74 L750 86 M744 80 L756 80' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M950 74 L950 86 M944 80 L956 80' stroke='%23334155' stroke-width='1'/%3E%3C/svg%3E")`
+          }}
+        />
+        <h1 className="relative text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-slate-800">
+          Our Research Focus
+        </h1>
+        <p className="relative text-lg font-sans text-slate-700 text-center max-w-3xl mx-auto">
+          Our laboratory is at the forefront of cytoskeleton research, utilizing a multidisciplinary approach to unravel the complex mechanisms governing cellular structure and function. We explore how these dynamic protein networks drive essential biological processes.
+        </p>
+      </div>
+
       <div className="grid md:grid-cols-2 gap-10 mb-16">
         {researchAreas.map((area, index) => (
           <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">

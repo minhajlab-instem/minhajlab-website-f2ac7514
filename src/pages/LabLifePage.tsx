@@ -1,6 +1,5 @@
-
 import React, { useState, useMemo } from 'react';
-import { labEventsData, LabEvent } from '@/data/labLifeData'; // Updated import
+import { labEventsData, LabEvent } from '@/data/labLifeData';
 import {
   Select,
   SelectContent,
@@ -10,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tag, Images } from 'lucide-react'; // Added Images icon
+import { Tag, Images } from 'lucide-react';
 
 const LabLifePage: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<string>('all');
@@ -26,7 +25,7 @@ const LabLifePage: React.FC = () => {
     return ['all', ...Array.from(new Set(allTags)).sort()];
   }, []);
 
-  const filteredEvents = useMemo(() => { // Renamed from filteredPhotos
+  const filteredEvents = useMemo(() => {
     return labEventsData.filter(event => {
       const yearMatch = selectedYear === 'all' || event.year.toString() === selectedYear;
       const tagMatch = selectedTag === 'all' || event.tags.includes(selectedTag);
@@ -36,12 +35,22 @@ const LabLifePage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-6 text-slate-800">
-        Lab Life & Events
-      </h1>
-      <p className="text-lg font-sans text-slate-700 mb-10 text-center max-w-3xl mx-auto">
-        A glimpse into our vibrant lab culture, collaborations, and memorable moments, now organized by event.
-      </p>
+      {/* Title with Background Illustration */}
+      <div className="relative mb-10">
+        {/* Background Line Art - Camera/Events/Celebration */}
+        <div 
+          className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Crect x='200' y='70' width='60' height='40' rx='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='230' cy='90' r='12' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Crect x='220' y='55' width='20' height='15' rx='3' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='400' y='75' width='60' height='40' rx='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='430' cy='95' r='12' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Crect x='420' y='60' width='20' height='15' rx='3' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='600' y='65' width='60' height='40' rx='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='630' cy='85' r='12' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Crect x='620' y='50' width='20' height='15' rx='3' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Cpath d='M180 130 Q200 120 220 130 T260 130 T300 130' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M380 135 Q400 125 420 135 T460 135 T500 135' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M580 125 Q600 115 620 125 T660 125 T700 125' stroke='%23334155' stroke-width='2' fill='none'/%3E%3C/svg%3E")`
+          }}
+        />
+        <h1 className="relative text-3xl md:text-4xl font-heading font-bold text-center mb-6 text-slate-800">
+          Lab Life & Events
+        </h1>
+        <p className="relative text-lg font-sans text-slate-700 text-center max-w-3xl mx-auto">
+          A glimpse into our vibrant lab culture, collaborations, and memorable moments, now organized by event.
+        </p>
+      </div>
 
       {/* Filters Section */}
       <div className="mb-10 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 p-4 bg-slate-100 rounded-lg shadow">

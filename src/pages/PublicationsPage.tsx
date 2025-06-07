@@ -102,12 +102,22 @@ const PublicationsPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-slate-800">
-        Laboratory Publications
-      </h1>
-      <p className="text-lg font-sans text-slate-700 mb-10 text-center max-w-3xl mx-auto">
-        A comprehensive chronological list of our research contributions to the scientific community.
-      </p>
+      {/* Title with Background Illustration */}
+      <div className="relative mb-10">
+        {/* Background Line Art - Scientific Papers/Documents */}
+        <div 
+          className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M50 100 L200 80 L350 120 L500 90 L650 110 L800 85 L950 105 L1100 95' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='200' cy='80' r='4' fill='%23334155'/%3E%3Ccircle cx='500' cy='90' r='4' fill='%23334155'/%3E%3Ccircle cx='800' cy='85' r='4' fill='%23334155'/%3E%3Crect x='150' y='60' width='30' height='40' rx='3' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='450' y='70' width='30' height='40' rx='3' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='750' y='65' width='30' height='40' rx='3' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Cpath d='M160 70 L170 80 M160 80 L170 70' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M460 80 L470 90 M460 90 L470 80' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M760 75 L770 85 M760 85 L770 75' stroke='%23334155' stroke-width='1'/%3E%3C/svg%3E")`
+          }}
+        />
+        <h1 className="relative text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-slate-800">
+          Laboratory Publications
+        </h1>
+        <p className="relative text-lg font-sans text-slate-700 text-center max-w-3xl mx-auto">
+          A comprehensive chronological list of our research contributions to the scientific community.
+        </p>
+      </div>
 
       {/* Current Lab Publications */}
       <div className="mb-16">

@@ -8,10 +8,20 @@ import { BookOpen, Users, Award, Mail } from 'lucide-react';
 const StudentsPage: React.FC = () => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-foreground">
-        Resources for Students
-      </h1>
-      <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+      {/* Title with Background Illustration */}
+      <div className="relative mb-8">
+        {/* Background Line Art - Students/Graduation/Learning */}
+        <div 
+          className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M200 120 L240 80 L280 120 L320 80 L360 120' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='240' cy='65' r='15' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M235 50 Q240 45 245 50 L245 60 L235 60 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M500 120 L540 80 L580 120 L620 80 L660 120' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='540' cy='65' r='15' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M535 50 Q540 45 545 50 L545 60 L535 60 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M800 120 L840 80 L880 120 L920 80 L960 120' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='840' cy='65' r='15' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M835 50 Q840 45 845 50 L845 60 L835 60 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Crect x='100' y='140' width='20' height='30' rx='2' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='140' y='135' width='20' height='35' rx='2' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='180' y='130' width='20' height='40' rx='2' stroke='%23334155' stroke-width='1' fill='none'/%3E%3C/svg%3E")`
+          }}
+        />
+        <h1 className="relative text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-foreground">
+          Resources for Students
+        </h1>
+        <div className="relative w-24 h-1 bg-primary mx-auto"></div>
+      </div>
       
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Research Opportunities */}

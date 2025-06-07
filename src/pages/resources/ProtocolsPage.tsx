@@ -55,10 +55,20 @@ const ProtocolsPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-foreground">
-        Laboratory Protocols
-      </h1>
-      <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+      {/* Title with Background Illustration */}
+      <div className="relative mb-8">
+        {/* Background Line Art - Laboratory/Equipment/Science */}
+        <div 
+          className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Cpath d='M150 120 L150 80 L170 80 L170 60 L150 60 L150 40 L190 40 L190 120 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='170' cy='130' r='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M350 120 L350 80 L370 80 L370 60 L350 60 L350 40 L390 40 L390 120 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='370' cy='130' r='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M550 120 L550 80 L570 80 L570 60 L550 60 L550 40 L590 40 L590 120 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='570' cy='130' r='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M750 120 L750 80 L770 80 L770 60 L750 60 L750 40 L790 40 L790 120 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='770' cy='130' r='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M950 120 L950 80 L970 80 L970 60 L950 60 L950 40 L990 40 L990 120 Z' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='970' cy='130' r='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M100 160 Q200 150 300 160 T500 160 T700 160 T900 160 T1100 160' stroke='%23334155' stroke-width='1'/%3E%3C/svg%3E")`
+          }}
+        />
+        <h1 className="relative text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-foreground">
+          Laboratory Protocols
+        </h1>
+        <div className="relative w-24 h-1 bg-primary mx-auto"></div>
+      </div>
       
       <div className="max-w-6xl mx-auto">
         {/* Important Notice */}

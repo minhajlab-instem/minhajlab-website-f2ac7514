@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile, Users, UserCheck, Camera } from 'lucide-react';
@@ -14,12 +13,22 @@ const TeamPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-6 text-slate-800">
-        Meet Our Team
-      </h1>
-      <p className="text-lg font-sans text-slate-700 mb-12 text-center max-w-3xl mx-auto">
-        Our lab thrives on collaboration and diverse expertise. Get to know the dedicated individuals driving our research forward.
-      </p>
+      {/* Title with Background Illustration */}
+      <div className="relative mb-12">
+        {/* Background Line Art - Team/People Network */}
+        <div 
+          className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Ccircle cx='200' cy='60' r='20' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='400' cy='80' r='20' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='600' cy='50' r='20' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='800' cy='90' r='20' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='1000' cy='70' r='20' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M220 60 L380 80' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M420 80 L580 50' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M620 50 L780 90' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M820 90 L980 70' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M200 80 L400 100' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M600 70 L800 110' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M195 55 L195 65 M205 55 L205 65' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M395 75 L395 85 M405 75 L405 85' stroke='%23334155' stroke-width='1'/%3E%3Cpath d='M595 45 L595 55 M605 45 L605 55' stroke='%23334155' stroke-width='1'/%3E%3C/svg%3E")`
+          }}
+        />
+        <h1 className="relative text-3xl md:text-4xl font-heading font-bold text-center mb-6 text-slate-800">
+          Meet Our Team
+        </h1>
+        <p className="relative text-lg font-sans text-slate-700 text-center max-w-3xl mx-auto">
+          Our lab thrives on collaboration and diverse expertise. Get to know the dedicated individuals driving our research forward.
+        </p>
+      </div>
 
       {/* Principal Investigator Section */}
       {principalInvestigator && (

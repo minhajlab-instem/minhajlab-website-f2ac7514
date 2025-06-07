@@ -61,10 +61,20 @@ const DataCodePage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
-      <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-foreground">
-        Data & Code Resources
-      </h1>
-      <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+      {/* Title with Background Illustration */}
+      <div className="relative mb-8">
+        {/* Background Line Art - Data/Code/Digital */}
+        <div 
+          className="absolute inset-0 opacity-5 bg-no-repeat bg-center bg-contain"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'%3E%3Crect x='150' y='60' width='100' height='60' rx='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Crect x='160' y='70' width='80' height='8' rx='2' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='160' y='85' width='60' height='8' rx='2' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='160' y='100' width='70' height='8' rx='2' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Crect x='400' y='70' width='100' height='60' rx='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M420 85 L430 95 L420 105 M440 85 L450 95 L440 105 M460 85 L470 95 L460 105' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Cpath d='M475 85 L480 85 M475 95 L485 95 M475 105 L480 105' stroke='%23334155' stroke-width='1'/%3E%3Crect x='650' y='65' width='100' height='60' rx='8' stroke='%23334155' stroke-width='2' fill='none'/%3E%3Ccircle cx='700' cy='85' r='6' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Ccircle cx='720' cy='85' r='6' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Ccircle cx='680' cy='105' r='6' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Ccircle cx='700' cy='105' r='6' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Ccircle cx='720' cy='105' r='6' stroke='%23334155' stroke-width='1' fill='none'/%3E%3Cpath d='M900 70 L1000 70 M900 80 L1000 80 M900 90 L1000 90 M900 100 L1000 100 M900 110 L1000 110 M900 120 L1000 120' stroke='%23334155' stroke-width='1'/%3E%3C/svg%3E")`
+          }}
+        />
+        <h1 className="relative text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-foreground">
+          Data & Code Resources
+        </h1>
+        <div className="relative w-24 h-1 bg-primary mx-auto"></div>
+      </div>
       
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Research Datasets */}
