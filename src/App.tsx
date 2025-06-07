@@ -15,9 +15,10 @@ import NewsPage from "./pages/NewsPage";
 import ContactPage from "./pages/ContactPage";
 import LabLifePage from "./pages/LabLifePage";
 import ResourcesPage from "./pages/ResourcesPage";
-import StudentsPage from "./pages/resources/StudentsPage";
+import SciComPage from "./pages/resources/SciComPage";
 import ProtocolsPage from "./pages/resources/ProtocolsPage";
-import DataCodePage from "./pages/resources/DataCodePage";
+import ResearchDataPage from "./pages/resources/ResearchDataPage";
+import UsefulLinksPage from "./pages/resources/UsefulLinksPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,9 +40,10 @@ const App = () => (
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/lab-life" element={<LabLifePage />} />
               <Route path="/resources" element={<ResourcesPage />} />
-              <Route path="/resources/students" element={<StudentsPage />} />
+              <Route path="/resources/scicom" element={<SciComPage />} />
               <Route path="/resources/protocols" element={<ProtocolsPage />} />
-              <Route path="/resources/data-code" element={<DataCodePage />} />
+              <Route path="/resources/research-data" element={<ResearchDataPage />} />
+              <Route path="/resources/useful-links" element={<UsefulLinksPage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

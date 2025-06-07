@@ -1,30 +1,31 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { GraduationCap, FileText, Database, ArrowRight } from 'lucide-react';
+import { Megaphone, Database, ExternalLink, ArrowRight } from 'lucide-react';
 
 const ResourcesPage: React.FC = () => {
   const resourceCategories = [
     {
-      title: "For Students",
-      description: "Educational materials, opportunities, and guidance for students interested in cytoskeleton research.",
-      icon: GraduationCap,
-      link: "/resources/students",
+      title: "Science Communication",
+      description: "Science outreach materials including books, videos, and short films to engage with the broader community.",
+      icon: Megaphone,
+      link: "/resources/scicom",
       color: "bg-blue-500"
     },
     {
-      title: "Lab Protocols",
-      description: "Detailed protocols and methodologies used in our research laboratory.",
-      icon: FileText,
-      link: "/resources/protocols",
+      title: "Research Data",
+      description: "Access to lab resources, protocols, and published research materials for internal and external users.",
+      icon: Database,
+      link: "/resources/research-data",
       color: "bg-green-500"
     },
     {
-      title: "Data & Code",
-      description: "Access to research data, analysis scripts, and computational resources.",
-      icon: Database,
-      link: "/resources/data-code",
+      title: "Useful Links",
+      description: "Curated resources for students and researchers including application guides, courses, and research tools.",
+      icon: ExternalLink,
+      link: "/resources/useful-links",
       color: "bg-purple-500"
     }
   ];
