@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { GraduationCap, FileText, Database, DollarSign, ArrowRight } from 'lucide-react';
+import { GraduationCap, FileText, Database, ArrowRight } from 'lucide-react';
 
 const ResourcesPage: React.FC = () => {
   const resourceCategories = [
@@ -27,13 +27,6 @@ const ResourcesPage: React.FC = () => {
       icon: Database,
       link: "/resources/data-code",
       color: "bg-purple-500"
-    },
-    {
-      title: "Funding Sources",
-      description: "Information about grants, fellowships, and funding opportunities in our field.",
-      icon: DollarSign,
-      link: "/resources/funding",
-      color: "bg-orange-500"
     }
   ];
 
@@ -47,7 +40,7 @@ const ResourcesPage: React.FC = () => {
         Comprehensive resources for researchers, students, and collaborators working in cytoskeleton research and related fields.
       </p>
 
-      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {resourceCategories.map((category, index) => (
           <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
             <CardHeader>

@@ -18,7 +18,6 @@ import ResourcesPage from "./pages/ResourcesPage";
 import StudentsPage from "./pages/resources/StudentsPage";
 import ProtocolsPage from "./pages/resources/ProtocolsPage";
 import DataCodePage from "./pages/resources/DataCodePage";
-import FundingPage from "./pages/resources/FundingPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,7 +42,6 @@ const App = () => (
               <Route path="/resources/students" element={<StudentsPage />} />
               <Route path="/resources/protocols" element={<ProtocolsPage />} />
               <Route path="/resources/data-code" element={<DataCodePage />} />
-              <Route path="/resources/funding" element={<FundingPage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

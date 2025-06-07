@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Link as LinkIcon } from 'lucide-react'; // Using Link icon for external links
+import { Link as LinkIcon, Users, Heart, University, Building, Globe } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const ResearchPage: React.FC = () => {
   const researchAreas = [
@@ -36,6 +37,104 @@ const ResearchPage: React.FC = () => {
     }
   ];
 
+  const collaborators = [
+    {
+      name: "Dr. Maria Santos",
+      institution: "Stanford University",
+      department: "Department of Cell Biology",
+      expertise: "Cytoskeleton dynamics in cancer cells",
+      collaboration: "Joint research on microtubule organization",
+      website: "https://stanford.edu",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=60"
+    },
+    {
+      name: "Dr. James Chen",
+      institution: "MIT",
+      department: "Department of Biological Engineering",
+      expertise: "Live-cell imaging and microscopy",
+      collaboration: "Development of advanced imaging techniques",
+      website: "https://mit.edu",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=60"
+    },
+    {
+      name: "Dr. Anna Mueller",
+      institution: "Max Planck Institute",
+      department: "Department of Molecular Cell Biology",
+      expertise: "Protein dynamics and structural biology",
+      collaboration: "Structural analysis of cytoskeletal proteins",
+      website: "https://mpi.de",
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=60"
+    },
+    {
+      name: "Dr. Raj Patel",
+      institution: "University of Cambridge",
+      department: "Department of Biochemistry",
+      expertise: "Computational modeling of cellular processes",
+      collaboration: "Mathematical modeling of cytoskeleton networks",
+      website: "https://cambridge.ac.uk",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=60"
+    }
+  ];
+
+  const fundingAgencies = [
+    {
+      name: "National Institutes of Health",
+      abbreviation: "NIH",
+      type: "Federal Government",
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-blue-100"
+    },
+    {
+      name: "National Science Foundation",
+      abbreviation: "NSF",
+      type: "Federal Government",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-green-100"
+    },
+    {
+      name: "Human Frontier Science Program",
+      abbreviation: "HFSP",
+      type: "International Organization",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-purple-100"
+    },
+    {
+      name: "American Cancer Society",
+      abbreviation: "ACS",
+      type: "Non-profit Organization",
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-pink-100"
+    },
+    {
+      name: "Chan Zuckerberg Initiative",
+      abbreviation: "CZI",
+      type: "Philanthropic Foundation",
+      image: "https://images.unsplash.com/photo-1473091534298-04dcbce3278c?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-orange-100"
+    },
+    {
+      name: "European Research Council",
+      abbreviation: "ERC",
+      type: "International Government",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-indigo-100"
+    },
+    {
+      name: "Gates Foundation",
+      abbreviation: "BMGF",
+      type: "Philanthropic Foundation",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-yellow-100"
+    },
+    {
+      name: "Wellcome Trust",
+      abbreviation: "WT",
+      type: "Charitable Foundation",
+      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      color: "bg-teal-100"
+    }
+  ];
+
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
       <h1 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-slate-800">
@@ -44,7 +143,7 @@ const ResearchPage: React.FC = () => {
       <p className="text-lg font-sans text-slate-700 mb-12 text-center max-w-3xl mx-auto">
         Our laboratory is at the forefront of cytoskeleton research, utilizing a multidisciplinary approach to unravel the complex mechanisms governing cellular structure and function. We explore how these dynamic protein networks drive essential biological processes.
       </p>
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 gap-10 mb-16">
         {researchAreas.map((area, index) => (
           <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <img src={area.image} alt={area.title} className="w-full h-48 object-cover rounded-md mb-4"/>
@@ -72,6 +171,80 @@ const ResearchPage: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Collaborators & Well-wishers */}
+      <section className="mb-16">
+        <div className="flex items-center justify-center space-x-3 mb-8">
+          <Users className="h-6 w-6 text-sky-700" />
+          <h2 className="text-3xl font-heading font-bold text-slate-800">Collaborators & Well-wishers</h2>
+        </div>
+        
+        <div className="grid lg:grid-cols-2 gap-6">
+          {collaborators.map((collaborator, index) => (
+            <Card key={index} className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-start space-x-4">
+                  <img 
+                    src={collaborator.image} 
+                    alt={collaborator.name} 
+                    className="w-16 h-16 rounded-full object-cover" 
+                  />
+                  <div className="flex-1">
+                    <CardTitle className="text-lg">{collaborator.name}</CardTitle>
+                    <CardDescription className="text-sm">
+                      <div className="flex items-center space-x-1 mb-1">
+                        <University className="h-3 w-3" />
+                        <span>{collaborator.institution}</span>
+                      </div>
+                      <div className="text-xs text-slate-500">{collaborator.department}</div>
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Funding Acknowledgement */}
+      <section>
+        <div className="flex items-center justify-center space-x-3 mb-8">
+          <Heart className="h-6 w-6 text-sky-700" />
+          <h2 className="text-3xl font-heading font-bold text-slate-800">Funding Acknowledgement</h2>
+        </div>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>Recognition of Support</CardTitle>
+            <CardDescription>
+              We gratefully acknowledge the generous support from our funding partners
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-slate-700 mb-6 leading-relaxed">
+              Our research is made possible through the generous support of federal agencies, international organizations, 
+              philanthropic foundations, and private donors who share our vision of advancing cytoskeletal research. 
+              We are deeply grateful to all our funding partners for their commitment to scientific discovery and 
+              their investment in the future of biomedical research. Their support enables us to push the boundaries 
+              of knowledge and contribute to the global scientific community.
+            </p>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+              {fundingAgencies.map((agency, index) => (
+                <div key={index} className={`${agency.color} rounded-lg p-3 text-center hover:shadow-md transition-shadow`}>
+                  <img 
+                    src={agency.image} 
+                    alt={agency.name}
+                    className="w-12 h-12 mx-auto mb-2 rounded-full object-cover"
+                  />
+                  <div className="text-xs font-semibold text-slate-700">{agency.abbreviation}</div>
+                  <div className="text-xs text-slate-500 mt-1">{agency.type}</div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </section>
     </div>
   );
 };
