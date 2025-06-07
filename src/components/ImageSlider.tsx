@@ -22,13 +22,17 @@ const ImageSlider: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const goToSlide = (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
       {labImages.map((image, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentImageIndex ? 'opacity-30' : 'opacity-0'
+            index === currentImageIndex ? 'opacity-100' : 'opacity-0'
           }`}
         >
           <img
@@ -38,7 +42,22 @@ const ImageSlider: React.FC = () => {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-gradient-to-r from-sky-800/40 to-sky-600/40"></div>
+      
+      {/* Navigation Dots */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {labImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentImageIndex 
+                ? 'bg-white scale-110' 
+                : 'bg-white/50 hover:bg-white/75'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };
