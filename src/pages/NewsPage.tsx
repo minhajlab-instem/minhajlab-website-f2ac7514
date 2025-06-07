@@ -1,12 +1,13 @@
 
 import React from 'react';
-import { Calendar, Award, Users, Newspaper, Twitter, ExternalLink, ChevronDown, Filter } from 'lucide-react';
+import { Calendar, Award, Users, Newspaper, Twitter, ExternalLink, ChevronDown, Filter, CalendarDays } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface NewsItem {
   id: string;
@@ -120,6 +121,7 @@ const NewsPage: React.FC = () => {
   const [selectedItemId, setSelectedItemId] = React.useState<string | null>(null);
   const [sortBy, setSortBy] = React.useState<string>('date-desc');
   const [filterTag, setFilterTag] = React.useState<string>('all');
+  const [selectedYear, setSelectedYear] = React.useState<string>('2025');
 
   // Get all unique tags and years
   const allTags = React.useMemo(() => {
@@ -136,6 +138,11 @@ const NewsPage: React.FC = () => {
   // Filter and sort news items
   const filteredAndSortedItems = React.useMemo(() => {
     let filtered = [...newsItems];
+    
+    // Filter by year
+    if (selectedYear !== 'all') {
+      filtered = filtered.filter(item => item.year.toString() === selectedYear);
+    }
     
     // Filter by tag
     if (filterTag !== 'all') {
@@ -157,7 +164,7 @@ const NewsPage: React.FC = () => {
     });
     
     return filtered;
-  }, [sortBy, filterTag]);
+  }, [sortBy, filterTag, selectedYear]);
 
   React.useEffect(() => {
     // Check if we're coming from a specific news item link
@@ -188,39 +195,102 @@ const NewsPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Filters and Sorting */}
+      {/* Modern Filters and Sorting */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="flex items-center gap-2 text-slate-700">
-              <Filter className="h-5 w-5" />
-              <span className="font-medium">Filter & Sort</span>
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 p-8">
+          {/* Year Tabs */}
+          <div className="mb-6">
+            <Tabs value={selectedYear} onValueChange={setSelectedYear} className="w-full">
+              <TabsList className="grid w-full grid-cols-auto bg-slate-100/80 rounded-2xl p-1 h-auto">
+                <TabsTrigger 
+                  value="2025" 
+                  className="rounded-xl px-6 py-3 text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-lg transition-all duration-200"
+                >
+                  <CalendarDays className="h-4 w-4 mr-2" />
+                  2025
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="all" 
+                  className="rounded-xl px-6 py-3 text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-lg transition-all duration-200"
+                >
+                  All Years
+                </TabsTrigger>
+                {allYears.filter(year => year !== 2025).map(year => (
+                  <TabsTrigger 
+                    key={year}
+                    value={year.toString()} 
+                    className="rounded-xl px-6 py-3 text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-lg transition-all duration-200"
+                  >
+                    {year}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
+
+          {/* Advanced Filters */}
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            <div className="flex items-center gap-3 text-slate-700">
+              <div className="p-2 rounded-xl bg-gradient-to-r from-blue-100 to-indigo-100">
+                <Filter className="h-5 w-5 text-blue-600" />
+              </div>
+              <span className="font-semibold text-slate-800">Refine Results</span>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full sm:w-[180px]">
-                  <SelectValue placeholder="Sort by" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="date-desc">Latest First</SelectItem>
-                  <SelectItem value="date-asc">Oldest First</SelectItem>
-                  <SelectItem value="title">Alphabetical</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+              {/* Sort Dropdown */}
+              <div className="relative">
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-full sm:w-[200px] h-12 rounded-xl border-slate-200 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl border-slate-200 shadow-xl">
+                    <SelectItem value="date-desc" className="rounded-lg">Latest First</SelectItem>
+                    <SelectItem value="date-asc" className="rounded-lg">Oldest First</SelectItem>
+                    <SelectItem value="title" className="rounded-lg">Alphabetical</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Select value={filterTag} onValueChange={setFilterTag}>
-                <SelectTrigger className="w-full sm:w-[180px]">
-                  <SelectValue placeholder="Filter by tag" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Tags</SelectItem>
-                  {allTags.map(tag => (
-                    <SelectItem key={tag} value={tag}>{tag}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/* Tag Filter */}
+              <div className="relative">
+                <Select value={filterTag} onValueChange={setFilterTag}>
+                  <SelectTrigger className="w-full sm:w-[200px] h-12 rounded-xl border-slate-200 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200">
+                    <SelectValue placeholder="Filter by tag" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl border-slate-200 shadow-xl">
+                    <SelectItem value="all" className="rounded-lg">All Tags</SelectItem>
+                    {allTags.map(tag => (
+                      <SelectItem key={tag} value={tag} className="rounded-lg">{tag}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Reset Button */}
+              {(selectedYear !== '2025' || filterTag !== 'all' || sortBy !== 'date-desc') && (
+                <Button 
+                  onClick={() => {
+                    setSelectedYear('2025');
+                    setSortBy('date-desc');
+                    setFilterTag('all');
+                  }}
+                  variant="outline"
+                  className="h-12 px-6 rounded-xl border-slate-200 bg-white/90 backdrop-blur-sm hover:bg-slate-50 transition-all duration-200"
+                >
+                  Reset
+                </Button>
+              )}
             </div>
+          </div>
+
+          {/* Results Info */}
+          <div className="mt-6 pt-6 border-t border-slate-200">
+            <p className="text-sm text-slate-600 text-center">
+              Showing <span className="font-semibold text-slate-800">{filteredAndSortedItems.length}</span> update{filteredAndSortedItems.length !== 1 ? 's' : ''} 
+              {selectedYear !== 'all' ? ` from ${selectedYear}` : ' from all years'}
+              {filterTag !== 'all' ? ` tagged with "${filterTag}"` : ''}
+            </p>
           </div>
         </div>
       </div>
@@ -366,6 +436,7 @@ const NewsPage: React.FC = () => {
             <p className="text-slate-500">Try adjusting your filters to see more results.</p>
             <Button 
               onClick={() => {
+                setSelectedYear('2025');
                 setSortBy('date-desc');
                 setFilterTag('all');
               }}
