@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -55,7 +54,7 @@ const HomePage: React.FC = () => {
                 Explore Our Research <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-sky-700 font-heading font-semibold px-8 py-3 transition-all duration-300 ease-in-out transform hover:scale-105">
+            <Button asChild variant="outline" size="lg" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-sky-700 font-heading font-semibold px-8 py-3 transition-all duration-300 ease-in-out transform hover:scale-105">
               <Link to="/contact">
                 Get In Touch
               </Link>
