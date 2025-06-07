@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
         <ImageSlider />
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
-            Unraveling the Mysteries of the Cytoskeleton
+            Unraveling the mysteries of cytoskeleton across scales!
           </h1>
           <p className="text-lg md:text-xl font-sans mb-10 max-w-3xl mx-auto">Our lab studies cytoskeleton,  motility and contractile elements across scale dimensions, from whole organ to cellular and molecular scale.</p>
           <div className="space-x-4">
