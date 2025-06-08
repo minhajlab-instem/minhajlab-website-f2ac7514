@@ -9,7 +9,147 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      current_members: {
+        Row: {
+          created_at: string
+          cv_url: string | null
+          email: string
+          focus: string | null
+          id: string
+          image_url: string | null
+          interests: string | null
+          linkedin: string | null
+          name: string
+          research_area: string | null
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cv_url?: string | null
+          email: string
+          focus?: string | null
+          id?: string
+          image_url?: string | null
+          interests?: string | null
+          linkedin?: string | null
+          name: string
+          research_area?: string | null
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cv_url?: string | null
+          email?: string
+          focus?: string | null
+          id?: string
+          image_url?: string | null
+          interests?: string | null
+          linkedin?: string | null
+          name?: string
+          research_area?: string | null
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      lab_alumni: {
+        Row: {
+          created_at: string
+          current_position: string | null
+          duration_in_lab: string | null
+          email: string | null
+          focus: string | null
+          graduation_year: string | null
+          id: string
+          image_url: string | null
+          interests: string | null
+          linkedin: string | null
+          name: string
+          research_area: string | null
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_position?: string | null
+          duration_in_lab?: string | null
+          email?: string | null
+          focus?: string | null
+          graduation_year?: string | null
+          id?: string
+          image_url?: string | null
+          interests?: string | null
+          linkedin?: string | null
+          name: string
+          research_area?: string | null
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_position?: string | null
+          duration_in_lab?: string | null
+          email?: string | null
+          focus?: string | null
+          graduation_year?: string | null
+          id?: string
+          image_url?: string | null
+          interests?: string | null
+          linkedin?: string | null
+          name?: string
+          research_area?: string | null
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      principal_investigator: {
+        Row: {
+          created_at: string
+          cv_url: string | null
+          email: string
+          focus: string | null
+          id: string
+          image_url: string | null
+          interests: string | null
+          linkedin: string | null
+          name: string
+          research_area: string | null
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cv_url?: string | null
+          email: string
+          focus?: string | null
+          id?: string
+          image_url?: string | null
+          interests?: string | null
+          linkedin?: string | null
+          name: string
+          research_area?: string | null
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cv_url?: string | null
+          email?: string
+          focus?: string | null
+          id?: string
+          image_url?: string | null
+          interests?: string | null
+          linkedin?: string | null
+          name?: string
+          research_area?: string | null
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

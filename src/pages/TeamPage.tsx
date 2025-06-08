@@ -1,15 +1,21 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Mail, Download, FlaskConical, Briefcase, Smile, Users, UserCheck, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { teamMembers } from '@/data/teamData';
 import MemberDetailItem from '@/components/team/MemberDetailItem';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CurrentMembersTabContent from '@/components/team/CurrentMembersTabContent';
 import AlumniTabContent from '@/components/team/AlumniTabContent';
+import { usePrincipalInvestigator } from '@/hooks/useTeamData';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const TeamPage: React.FC = () => {
-  const principalInvestigator = teamMembers.find(member => member.status === 'pi');
+  const { data: principalInvestigator, isLoading: piLoading, error: piError } = usePrincipalInvestigator();
+
+  if (piError) {
+    console.error('Error loading principal investigator:', piError);
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
@@ -31,28 +37,44 @@ const TeamPage: React.FC = () => {
       </div>
 
       {/* Principal Investigator Section */}
-      {principalInvestigator && (
-        <section className="mb-16">
-          <h2 className="text-2xl md:text-3xl font-heading font-semibold text-sky-700 mb-8 text-center">
-            Principal Investigator
-          </h2>
+      <section className="mb-16">
+        <h2 className="text-2xl md:text-3xl font-heading font-semibold text-sky-700 mb-8 text-center">
+          Principal Investigator
+        </h2>
+        {piLoading ? (
+          <div className="bg-white p-6 md:p-8 rounded-lg shadow-xl max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+            <div className="flex flex-col items-center">
+              <Skeleton className="w-40 h-40 md:w-48 md:h-48 rounded-full mb-4" />
+              <Skeleton className="w-32 h-8 mb-4" />
+            </div>
+            <div className="text-center md:text-left flex-grow space-y-4">
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-4 w-64" />
+              <Skeleton className="h-4 w-56" />
+              <Skeleton className="h-4 w-72" />
+            </div>
+          </div>
+        ) : principalInvestigator ? (
           <div className="bg-white p-6 md:p-8 rounded-lg shadow-xl max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
             <div className="flex flex-col items-center">
               <img 
-                src={principalInvestigator.imageUrl} 
+                src={principalInvestigator.image_url || ''} 
                 alt={principalInvestigator.name} 
                 className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-md mb-4"
               />
               
               <div className="flex justify-center space-x-4 mb-4">
-                <a href={principalInvestigator.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-sky-600 transition-colors" aria-label="LinkedIn">
-                  <Linkedin size={24} />
-                </a>
+                {principalInvestigator.linkedin && (
+                  <a href={principalInvestigator.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-sky-600 transition-colors" aria-label="LinkedIn">
+                    <Linkedin size={24} />
+                  </a>
+                )}
               </div>
               
-              {principalInvestigator.cvUrl && (
+              {principalInvestigator.cv_url && (
                 <Button asChild variant="outline" size="sm">
-                  <a href={principalInvestigator.cvUrl} download>
+                  <a href={principalInvestigator.cv_url} download>
                     <Download size={18} className="mr-2" />
                     Download CV
                   </a>
@@ -69,13 +91,23 @@ const TeamPage: React.FC = () => {
                 <a href={`mailto:${principalInvestigator.email}`} className="hover:text-sky-700 hover:underline">{principalInvestigator.email}</a>
               </div>
               
-              <MemberDetailItem icon={FlaskConical} label="Research Area" value={principalInvestigator.researchArea} />
-              <MemberDetailItem icon={Briefcase} label="Focus" value={principalInvestigator.focus} />
-              <MemberDetailItem icon={Smile} label="Interests" value={principalInvestigator.interests} />
+              {principalInvestigator.research_area && (
+                <MemberDetailItem icon={FlaskConical} label="Research Area" value={principalInvestigator.research_area} />
+              )}
+              {principalInvestigator.focus && (
+                <MemberDetailItem icon={Briefcase} label="Focus" value={principalInvestigator.focus} />
+              )}
+              {principalInvestigator.interests && (
+                <MemberDetailItem icon={Smile} label="Interests" value={principalInvestigator.interests} />
+              )}
             </div>
           </div>
-        </section>
-      )}
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-slate-500">Principal investigator information not available.</p>
+          </div>
+        )}
+      </section>
 
       {/* Tabs for Current Members and Alumni */}
       <section className="mb-16">
