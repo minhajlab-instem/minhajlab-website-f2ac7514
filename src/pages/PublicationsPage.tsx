@@ -1,104 +1,111 @@
+
 import React from 'react';
 import { Link as ExternalLinkIcon } from 'lucide-react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
-
-const publicationsData = [
-  {
-    title: "Novel insights into actin polymerization dynamics during cell migration.",
-    authors: "Vance, E., Carter, B., et al.",
-    journal: "Journal of Cell Biology",
-    year: 2023,
-    doi: "10.1083/jcb.202301001",
-    link: "#"
-  },
-  {
-    title: "The role of microtubule-associated proteins in neurogenesis.",
-    authors: "Carter, B., Khan, A., Vance, E.",
-    journal: "Developmental Cell",
-    year: 2022,
-    doi: "10.1016/j.devcel.202203002",
-    link: "#"
-  },
-  {
-    title: "Mechanical stress resilience mediated by intermediate filaments.",
-    authors: "Khan, A., Green, S., Vance, E.",
-    journal: "Nature Communications",
-    year: 2021,
-    doi: "10.1038/s41467-021-21003-x",
-    link: "#"
-  },
-  {
-    title: "Cytoskeletal defects in cancer progression.",
-    authors: "Vance, E., et al.",
-    journal: "Cancer Research",
-    year: 2020,
-    doi: "10.1158/0008-5472.CAN-20-0004",
-    link: "https://doi.org/10.1158/0008-5472.CAN-20-0004"
-  },
-  {
-    title: "High-Resolution Imaging of Intermediate Filaments in Stressed Cells.",
-    authors: "Kim J., Davis L.",
-    journal: "Biophysical Journal",
-    year: 2024,
-    doi: "10.1016/j.bpj.2024.05.012",
-    link: "https://doi.org/10.1016/j.bpj.2024.05.012"
-  }
-];
-
-const piPreLabPublications = [
-  {
-    title: "Structural basis of actin filament nucleation by formins.",
-    authors: "Vance, E., Thompson, K., Martinez, L.",
-    journal: "Nature Structural & Molecular Biology",
-    year: 2018,
-    doi: "10.1038/s41594-018-0120-3",
-    link: "https://doi.org/10.1038/s41594-018-0120-3"
-  },
-  {
-    title: "Dynamic regulation of cytoskeletal networks during development.",
-    authors: "Vance, E., Anderson, P., Liu, S.",
-    journal: "Cell",
-    year: 2017,
-    doi: "10.1016/j.cell.2017.08.045",
-    link: "https://doi.org/10.1016/j.cell.2017.08.045"
-  },
-  {
-    title: "Mechanotransduction pathways in cellular migration.",
-    authors: "Johnson, R., Vance, E., Brown, M.",
-    journal: "Science",
-    year: 2016,
-    doi: "10.1126/science.aaf2121",
-    link: "https://doi.org/10.1126/science.aaf2121"
-  },
-  {
-    title: "Molecular motors and cytoskeletal organization in neurons.",
-    authors: "Vance, E., White, D., Garcia, A.",
-    journal: "Neuron",
-    year: 2015,
-    doi: "10.1016/j.neuron.2015.04.018",
-    link: "https://doi.org/10.1016/j.neuron.2015.04.018"
-  },
-  {
-    title: "Force generation mechanisms in cellular adhesion.",
-    authors: "Davis, C., Vance, E., Miller, J.",
-    journal: "Nature Cell Biology",
-    year: 2014,
-    doi: "10.1038/ncb2943",
-    link: "https://doi.org/10.1038/ncb2943"
-  },
-  {
-    title: "Cytoskeletal remodeling during epithelial-mesenchymal transition.",
-    authors: "Vance, E., Taylor, R., Wilson, H.",
-    journal: "Developmental Cell",
-    year: 2013,
-    doi: "10.1016/j.devcel.2013.02.015",
-    link: "https://doi.org/10.1016/j.devcel.2013.02.015"
-  }
-];
+import { Skeleton } from '@/components/ui/skeleton';
+import { useCurrentLabPublications, usePreLabPublications } from '@/hooks/useTeamData';
 
 const PublicationsPage: React.FC = () => {
-  const sortedPublications = [...publicationsData].sort((a, b) => b.year - a.year);
-  const sortedPiPublications = [...piPreLabPublications].sort((a, b) => b.year - a.year);
+  const { data: currentLabPubs, isLoading: currentLabLoading, error: currentLabError } = useCurrentLabPublications();
+  const { data: preLabPubs, isLoading: preLabLoading, error: preLabError } = usePreLabPublications();
+
+  if (currentLabError) {
+    console.error('Error loading current lab publications:', currentLabError);
+  }
+
+  if (preLabError) {
+    console.error('Error loading pre-lab publications:', preLabError);
+  }
+
+  const isLoading = currentLabLoading || preLabLoading;
+
+  const PublicationTable = ({ publications, isLoading }: { publications: any[] | undefined, isLoading: boolean }) => {
+    if (isLoading) {
+      return (
+        <div className="overflow-x-auto bg-white p-1 rounded-lg shadow-lg">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[40%] font-semibold text-slate-700">Title</TableHead>
+                <TableHead className="w-[20%] font-semibold text-slate-700">Authors</TableHead>
+                <TableHead className="w-[20%] font-semibold text-slate-700">Journal</TableHead>
+                <TableHead className="w-[10%] text-center font-semibold text-slate-700">Year</TableHead>
+                <TableHead className="text-left w-[10%] font-semibold text-slate-700">DOI / Link</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {[...Array(3)].map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell><Skeleton className="h-4 w-full" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-36" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-16" /></TableCell>
+                  <TableCell><Skeleton className="h-4 w-24" /></TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      );
+    }
+
+    if (!publications || publications.length === 0) {
+      return (
+        <div className="text-center py-8">
+          <p className="text-slate-500">No publications to display.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="overflow-x-auto bg-white p-1 rounded-lg shadow-lg">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[40%] font-semibold text-slate-700">Title</TableHead>
+              <TableHead className="w-[20%] font-semibold text-slate-700">Authors</TableHead>
+              <TableHead className="w-[20%] font-semibold text-slate-700">Journal</TableHead>
+              <TableHead className="w-[10%] text-center font-semibold text-slate-700">Year</TableHead>
+              <TableHead className="text-left w-[10%] font-semibold text-slate-700">DOI / Link</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {publications.map((pub) => (
+              <TableRow key={pub.id} className="hover:bg-slate-50 transition-colors">
+                <TableCell className="font-medium text-sky-700 py-3">{pub.title}</TableCell>
+                <TableCell className="text-slate-600 py-3">{pub.authors}</TableCell>
+                <TableCell className="text-slate-500 italic py-3">{pub.journal}</TableCell>
+                <TableCell className="text-slate-500 text-center py-3">{pub.year}</TableCell>
+                <TableCell className="py-3">
+                  {pub.link && pub.link !== "#" ? (
+                    <a
+                      href={pub.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-medium"
+                    >
+                      {pub.doi} <ExternalLinkIcon size={14} className="ml-1" />
+                    </a>
+                  ) : pub.doi ? (
+                    <a
+                      href={`https://doi.org/${pub.doi}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-medium"
+                    >
+                      {pub.doi}
+                    </a>
+                  ) : (
+                    <span className="text-slate-400">N/A</span>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    );
+  };
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
@@ -124,50 +131,7 @@ const PublicationsPage: React.FC = () => {
         <h2 className="text-2xl md:text-3xl font-heading font-bold mb-6 text-slate-800">
           Current Laboratory Publications
         </h2>
-        <div className="overflow-x-auto bg-white p-1 rounded-lg shadow-lg">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[40%] font-semibold text-slate-700">Title</TableHead>
-                <TableHead className="w-[20%] font-semibold text-slate-700">Authors</TableHead>
-                <TableHead className="w-[20%] font-semibold text-slate-700">Journal</TableHead>
-                <TableHead className="w-[10%] text-center font-semibold text-slate-700">Year</TableHead>
-                <TableHead className="text-left w-[10%] font-semibold text-slate-700">DOI / Link</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sortedPublications.map((pub, index) => (
-                <TableRow key={index} className="hover:bg-slate-50 transition-colors">
-                  <TableCell className="font-medium text-sky-700 py-3">{pub.title}</TableCell>
-                  <TableCell className="text-slate-600 py-3">{pub.authors}</TableCell>
-                  <TableCell className="text-slate-500 italic py-3">{pub.journal}</TableCell>
-                  <TableCell className="text-slate-500 text-center py-3">{pub.year}</TableCell>
-                  <TableCell className="py-3">
-                    {pub.link && pub.link !== "#" ? (
-                      <a
-                        href={pub.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-medium"
-                      >
-                        {pub.doi} <ExternalLinkIcon size={14} className="ml-1" />
-                      </a>
-                    ) : (
-                      <a
-                        href={`https://doi.org/${pub.doi}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-medium"
-                      >
-                        {pub.doi}
-                      </a>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <PublicationTable publications={currentLabPubs} isLoading={currentLabLoading} />
       </div>
 
       {/* PI Pre-Lab Publications */}
@@ -178,39 +142,7 @@ const PublicationsPage: React.FC = () => {
         <p className="text-base font-sans text-slate-600 mb-6 max-w-4xl">
           Publications by Dr. Eleanor Vance from her research work prior to establishing the current laboratory.
         </p>
-        <div className="overflow-x-auto bg-white p-1 rounded-lg shadow-lg">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[40%] font-semibold text-slate-700">Title</TableHead>
-                <TableHead className="w-[20%] font-semibold text-slate-700">Authors</TableHead>
-                <TableHead className="w-[20%] font-semibold text-slate-700">Journal</TableHead>
-                <TableHead className="w-[10%] text-center font-semibold text-slate-700">Year</TableHead>
-                <TableHead className="text-left w-[10%] font-semibold text-slate-700">DOI / Link</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {sortedPiPublications.map((pub, index) => (
-                <TableRow key={index} className="hover:bg-slate-50 transition-colors">
-                  <TableCell className="font-medium text-sky-700 py-3">{pub.title}</TableCell>
-                  <TableCell className="text-slate-600 py-3">{pub.authors}</TableCell>
-                  <TableCell className="text-slate-500 italic py-3">{pub.journal}</TableCell>
-                  <TableCell className="text-slate-500 text-center py-3">{pub.year}</TableCell>
-                  <TableCell className="py-3">
-                    <a
-                      href={pub.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-sm text-sky-600 hover:text-sky-800 hover:underline font-medium"
-                    >
-                      {pub.doi} <ExternalLinkIcon size={14} className="ml-1" />
-                    </a>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <PublicationTable publications={preLabPubs} isLoading={preLabLoading} />
       </div>
     </div>
   );

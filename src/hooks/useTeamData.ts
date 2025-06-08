@@ -24,7 +24,7 @@ export const useCurrentMembers = () => {
       const { data, error } = await supabase
         .from('current_members')
         .select('*')
-        .order('name');
+        .order('display_order');
       
       if (error) throw error;
       return data;
@@ -39,7 +39,54 @@ export const useLabAlumni = () => {
       const { data, error } = await supabase
         .from('lab_alumni')
         .select('*')
-        .order('name');
+        .order('display_order');
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+};
+
+export const usePublications = () => {
+  return useQuery({
+    queryKey: ['publications'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('publications')
+        .select('*')
+        .order('publication_type, year', { ascending: [true, false] });
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+};
+
+export const useCurrentLabPublications = () => {
+  return useQuery({
+    queryKey: ['current-lab-publications'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('publications')
+        .select('*')
+        .eq('publication_type', 'current_lab')
+        .order('year', { ascending: false });
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+};
+
+export const usePreLabPublications = () => {
+  return useQuery({
+    queryKey: ['pre-lab-publications'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('publications')
+        .select('*')
+        .eq('publication_type', 'pre_lab')
+        .order('year', { ascending: false });
       
       if (error) throw error;
       return data;

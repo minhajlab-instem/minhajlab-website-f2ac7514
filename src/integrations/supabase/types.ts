@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           created_at: string
           cv_url: string | null
+          display_order: number | null
           email: string
           focus: string | null
           id: string
@@ -27,6 +28,7 @@ export type Database = {
         Insert: {
           created_at?: string
           cv_url?: string | null
+          display_order?: number | null
           email: string
           focus?: string | null
           id?: string
@@ -41,6 +43,7 @@ export type Database = {
         Update: {
           created_at?: string
           cv_url?: string | null
+          display_order?: number | null
           email?: string
           focus?: string | null
           id?: string
@@ -58,48 +61,30 @@ export type Database = {
         Row: {
           created_at: string
           current_position: string | null
+          display_order: number | null
           duration_in_lab: string | null
-          email: string | null
-          focus: string | null
-          graduation_year: string | null
           id: string
-          image_url: string | null
-          interests: string | null
-          linkedin: string | null
           name: string
-          research_area: string | null
           role: string
           updated_at: string
         }
         Insert: {
           created_at?: string
           current_position?: string | null
+          display_order?: number | null
           duration_in_lab?: string | null
-          email?: string | null
-          focus?: string | null
-          graduation_year?: string | null
           id?: string
-          image_url?: string | null
-          interests?: string | null
-          linkedin?: string | null
           name: string
-          research_area?: string | null
           role: string
           updated_at?: string
         }
         Update: {
           created_at?: string
           current_position?: string | null
+          display_order?: number | null
           duration_in_lab?: string | null
-          email?: string | null
-          focus?: string | null
-          graduation_year?: string | null
           id?: string
-          image_url?: string | null
-          interests?: string | null
-          linkedin?: string | null
           name?: string
-          research_area?: string | null
           role?: string
           updated_at?: string
         }
@@ -147,6 +132,48 @@ export type Database = {
           research_area?: string | null
           role?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      publications: {
+        Row: {
+          authors: string
+          created_at: string
+          display_order: number | null
+          doi: string | null
+          id: string
+          journal: string
+          link: string | null
+          publication_type: string
+          title: string
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          authors: string
+          created_at?: string
+          display_order?: number | null
+          doi?: string | null
+          id?: string
+          journal: string
+          link?: string | null
+          publication_type: string
+          title: string
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          authors?: string
+          created_at?: string
+          display_order?: number | null
+          doi?: string | null
+          id?: string
+          journal?: string
+          link?: string | null
+          publication_type?: string
+          title?: string
+          updated_at?: string
+          year?: number
         }
         Relationships: []
       }
