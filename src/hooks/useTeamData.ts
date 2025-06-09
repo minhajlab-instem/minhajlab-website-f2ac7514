@@ -54,7 +54,8 @@ export const usePublications = () => {
       const { data, error } = await supabase
         .from('publications')
         .select('*')
-        .order('publication_type, year', { ascending: [true, false] });
+        .order('publication_type')
+        .order('year', { ascending: false });
       
       if (error) throw error;
       return data;
