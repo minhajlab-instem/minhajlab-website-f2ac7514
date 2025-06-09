@@ -9,6 +9,41 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      application_steps: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          position_id: string
+          step_description: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          position_id: string
+          step_description: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          position_id?: string
+          step_description?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "application_steps_position_id_fkey"
+            columns: ["position_id"]
+            isOneToOne: false
+            referencedRelation: "lab_positions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       collaborators: {
         Row: {
           collaboration: string
@@ -48,6 +83,78 @@ export type Database = {
           name?: string
           updated_at?: string
           website?: string | null
+        }
+        Relationships: []
+      }
+      contact_info: {
+        Row: {
+          address: string
+          building_info: string | null
+          created_at: string
+          email: string
+          id: string
+          lab_hours: string
+          map_location: Json | null
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          address: string
+          building_info?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          lab_hours: string
+          map_location?: Json | null
+          phone: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string
+          building_info?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          lab_hours?: string
+          map_location?: Json | null
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          is_read: boolean | null
+          is_replied: boolean | null
+          message: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          is_read?: boolean | null
+          is_replied?: boolean | null
+          message: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          is_read?: boolean | null
+          is_replied?: boolean | null
+          message?: string
+          subject?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -167,6 +274,115 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      lab_positions: {
+        Row: {
+          created_at: string
+          display_order: number
+          duration_text: string
+          icon: string
+          id: string
+          position_type: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          duration_text: string
+          icon: string
+          id?: string
+          position_type: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          duration_text?: string
+          icon?: string
+          id?: string
+          position_type?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      position_notes: {
+        Row: {
+          created_at: string
+          display_order: number
+          highlight_color: string | null
+          id: string
+          is_important: boolean | null
+          note: string
+          position_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          highlight_color?: string | null
+          id?: string
+          is_important?: boolean | null
+          note: string
+          position_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          highlight_color?: string | null
+          id?: string
+          is_important?: boolean | null
+          note?: string
+          position_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "position_notes_position_id_fkey"
+            columns: ["position_id"]
+            isOneToOne: false
+            referencedRelation: "lab_positions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      position_requirements: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          position_id: string
+          requirement: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          position_id: string
+          requirement: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          position_id?: string
+          requirement?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "position_requirements_position_id_fkey"
+            columns: ["position_id"]
+            isOneToOne: false
+            referencedRelation: "lab_positions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       principal_investigator: {
         Row: {

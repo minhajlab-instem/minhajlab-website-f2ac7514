@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Phone, Mail as MailIcon, Navigation, ZoomIn, ZoomOut, Layers, GraduationCap, Users, BookOpen, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,14 +5,59 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useContactInfo, useLabPositions, submitContactForm } from '@/hooks/useContactData';
+import { useToast } from '@/hooks/use-toast';
 
 const ContactPage: React.FC = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { data: contactInfo, isLoading: contactLoading } = useContactInfo();
+  const { data: labPositions, isLoading: positionsLoading } = useLabPositions();
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    alert("Form submitted (Placeholder - no actual submission yet)!");
-    (e.target as HTMLFormElement).reset();
+    
+    const formData = new FormData(e.currentTarget);
+    const submissionData = {
+      full_name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
+    };
+
+    try {
+      await submitContactForm(submissionData);
+      toast({
+        title: "Message sent successfully!",
+        description: "We'll get back to you as soon as possible.",
+      });
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error sending message",
+        description: "Please try again later or contact us directly.",
+        variant: "destructive",
+      });
+    }
   };
+
+  const getIconComponent = (iconName: string) => {
+    const icons = {
+      GraduationCap,
+      Users,
+      BookOpen,
+      Award
+    };
+    return icons[iconName as keyof typeof icons] || GraduationCap;
+  };
+
+  if (contactLoading || positionsLoading) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
@@ -32,29 +76,30 @@ const ContactPage: React.FC = () => {
                 <MapPin size={24} className="mr-3 mt-1 text-sky-600" />
                 <div>
                   <h3 className="font-semibold">Our Address</h3>
-                  <p>123 Research Parkway, Science City, ST 98765, USA</p>
+                  <p>{contactInfo?.address}</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <MailIcon size={24} className="mr-3 mt-1 text-sky-600" />
                 <div>
                   <h3 className="font-semibold">Email Us</h3>
-                  <p>info@cytoskeletonlab.example.com</p>
+                  <p>{contactInfo?.email}</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Phone size={24} className="mr-3 mt-1 text-sky-600" />
                 <div>
                   <h3 className="font-semibold">Call Us</h3>
-                  <p>+1 (555) 123-4567</p>
+                  <p>{contactInfo?.phone}</p>
                 </div>
               </div>
             </div>
             
             <div>
               <h3 className="text-xl font-heading font-semibold mb-3 text-sky-700">Lab Hours</h3>
-              <p className="font-sans text-slate-700">Monday - Friday: 9:00 AM - 5:00 PM</p>
-              <p className="font-sans text-slate-700">Weekends: Closed</p>
+              <div className="font-sans text-slate-700 whitespace-pre-line">
+                {contactInfo?.lab_hours}
+              </div>
             </div>
           </div>
 
@@ -137,7 +182,7 @@ const ContactPage: React.FC = () => {
             
             <div className="mt-4 text-center">
               <p className="text-sm text-slate-600 font-sans">
-                123 Research Parkway, Science City, ST 98765 • Located in the Chemistry Building, 3rd Floor
+                {contactInfo?.address} • {contactInfo?.building_info}
               </p>
             </div>
           </div>
@@ -154,127 +199,66 @@ const ContactPage: React.FC = () => {
           </p>
           
           <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="msc-students">
-              <AccordionTrigger className="text-left">
-                <div className="flex items-center">
-                  <GraduationCap className="mr-3 text-sky-600" size={20} />
-                  <span className="font-heading font-semibold">MSc Project Students</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4 text-slate-700 font-sans">
-                  <p><strong>Duration:</strong> 6-12 months</p>
-                  <p><strong>Requirements:</strong></p>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>Currently enrolled in a relevant MSc program (Biology, Biochemistry, Cell Biology, etc.)</li>
-                    <li>Strong academic record (GPA ≥ 3.5)</li>
-                    <li>Basic laboratory experience preferred</li>
-                    <li>Commitment to full-time research during project period</li>
-                  </ul>
-                  <p><strong>Application Process:</strong></p>
-                  <ol className="list-decimal list-inside space-y-1 ml-4">
-                    <li>Email CV and cover letter to PI</li>
-                    <li>Include academic transcripts</li>
-                    <li>Provide contact information for 2 academic references</li>
-                    <li>Schedule an interview if shortlisted</li>
-                  </ol>
-                  <p className="text-sky-600 font-semibold">Application Deadline: Rolling basis, apply 3-6 months before intended start date</p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="project-associates">
-              <AccordionTrigger className="text-left">
-                <div className="flex items-center">
-                  <Users className="mr-3 text-sky-600" size={20} />
-                  <span className="font-heading font-semibold">Project Associates</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4 text-slate-700 font-sans">
-                  <p><strong>Duration:</strong> 1-2 years (renewable)</p>
-                  <p><strong>Requirements:</strong></p>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>BSc/MSc in relevant field</li>
-                    <li>2+ years of research experience</li>
-                    <li>Proficiency in cell culture and microscopy techniques</li>
-                    <li>Experience with molecular biology techniques</li>
-                    <li>Strong publication record preferred</li>
-                  </ul>
-                  <p><strong>Application Process:</strong></p>
-                  <ol className="list-decimal list-inside space-y-1 ml-4">
-                    <li>Submit detailed CV with publication list</li>
-                    <li>Cover letter outlining research interests and career goals</li>
-                    <li>Provide contact details for 3 professional references</li>
-                    <li>Present research seminar if invited</li>
-                  </ol>
-                  <p className="text-sky-600 font-semibold">Positions available based on funding - check our website for current openings</p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="phd-students">
-              <AccordionTrigger className="text-left">
-                <div className="flex items-center">
-                  <BookOpen className="mr-3 text-sky-600" size={20} />
-                  <span className="font-heading font-semibold">PhD Students</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4 text-slate-700 font-sans">
-                  <p><strong>Duration:</strong> 4-5 years</p>
-                  <p><strong>Requirements:</strong></p>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>MSc in Cell Biology, Biochemistry, or related field</li>
-                    <li>Excellent academic record</li>
-                    <li>Research experience in cell biology or related area</li>
-                    <li>Strong motivation for independent research</li>
-                    <li>Good written and oral communication skills</li>
-                  </ul>
-                  <p><strong>Application Process:</strong></p>
-                  <ol className="list-decimal list-inside space-y-1 ml-4">
-                    <li>Apply through university graduate school</li>
-                    <li>Submit research proposal (2-3 pages)</li>
-                    <li>Provide academic transcripts and test scores</li>
-                    <li>Submit 3 letters of recommendation</li>
-                    <li>Interview with lab members and PI</li>
-                  </ol>
-                  <p><strong>Funding:</strong> Stipend + tuition coverage available for qualified candidates</p>
-                  <p className="text-sky-600 font-semibold">Application Deadline: January 15th for Fall admission</p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="postdocs">
-              <AccordionTrigger className="text-left">
-                <div className="flex items-center">
-                  <Award className="mr-3 text-sky-600" size={20} />
-                  <span className="font-heading font-semibold">Postdoctoral Fellows</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-4 text-slate-700 font-sans">
-                  <p><strong>Duration:</strong> 2-4 years</p>
-                  <p><strong>Requirements:</strong></p>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>PhD in Cell Biology, Biochemistry, Biophysics, or related field</li>
-                    <li>Strong publication record in peer-reviewed journals</li>
-                    <li>Expertise in cytoskeleton research preferred</li>
-                    <li>Experience with advanced microscopy techniques</li>
-                    <li>Ability to work independently and mentor students</li>
-                  </ul>
-                  <p><strong>Application Process:</strong></p>
-                  <ol className="list-decimal list-inside space-y-1 ml-4">
-                    <li>Email detailed CV with complete publication list</li>
-                    <li>Research statement (2 pages) outlining future goals</li>
-                    <li>Arrange for 3 reference letters to be sent directly</li>
-                    <li>Present job talk if invited</li>
-                  </ol>
-                  <p><strong>Benefits:</strong> Competitive salary, health insurance, conference travel support</p>
-                  <p className="text-sky-600 font-semibold">Applications accepted year-round - contact PI directly</p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+            {labPositions?.map((position) => {
+              const IconComponent = getIconComponent(position.icon);
+              return (
+                <AccordionItem key={position.id} value={position.position_type}>
+                  <AccordionTrigger className="text-left">
+                    <div className="flex items-center">
+                      <IconComponent className="mr-3 text-sky-600" size={20} />
+                      <span className="font-heading font-semibold">{position.title}</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-4 text-slate-700 font-sans">
+                      <p><strong>Duration:</strong> {position.duration_text}</p>
+                      
+                      {position.position_requirements && position.position_requirements.length > 0 && (
+                        <>
+                          <p><strong>Requirements:</strong></p>
+                          <ul className="list-disc list-inside space-y-1 ml-4">
+                            {position.position_requirements
+                              .sort((a, b) => a.display_order - b.display_order)
+                              .map((req) => (
+                                <li key={req.id}>{req.requirement}</li>
+                              ))}
+                          </ul>
+                        </>
+                      )}
+                      
+                      {position.application_steps && position.application_steps.length > 0 && (
+                        <>
+                          <p><strong>Application Process:</strong></p>
+                          <ol className="list-decimal list-inside space-y-1 ml-4">
+                            {position.application_steps
+                              .sort((a, b) => a.display_order - b.display_order)
+                              .map((step) => (
+                                <li key={step.id}>{step.step_description}</li>
+                              ))}
+                          </ol>
+                        </>
+                      )}
+                      
+                      {position.position_notes && position.position_notes.length > 0 && (
+                        <div className="space-y-2">
+                          {position.position_notes
+                            .sort((a, b) => a.display_order - b.display_order)
+                            .map((note) => (
+                              <p 
+                                key={note.id} 
+                                className={note.highlight_color || "text-sky-600"}
+                                style={{ fontWeight: note.is_important ? 'bold' : 'normal' }}
+                              >
+                                {note.note}
+                              </p>
+                            ))}
+                        </div>
+                      )}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
           </Accordion>
 
           <div className="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
