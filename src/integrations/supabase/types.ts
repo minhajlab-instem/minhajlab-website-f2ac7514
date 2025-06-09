@@ -9,6 +9,48 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      collaborators: {
+        Row: {
+          collaboration: string
+          created_at: string
+          department: string
+          display_order: number
+          expertise: string
+          id: string
+          image_url: string | null
+          institution: string
+          name: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          collaboration: string
+          created_at?: string
+          department: string
+          display_order?: number
+          expertise: string
+          id?: string
+          image_url?: string | null
+          institution: string
+          name: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          collaboration?: string
+          created_at?: string
+          department?: string
+          display_order?: number
+          expertise?: string
+          id?: string
+          image_url?: string | null
+          institution?: string
+          name?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       current_members: {
         Row: {
           created_at: string
@@ -53,6 +95,42 @@ export type Database = {
           name?: string
           research_area?: string | null
           role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      funding_agencies: {
+        Row: {
+          abbreviation: string
+          color: string
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string | null
+          name: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          abbreviation: string
+          color?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          name: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          abbreviation?: string
+          color?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          name?: string
+          type?: string
           updated_at?: string
         }
         Relationships: []
@@ -174,6 +252,130 @@ export type Database = {
           title?: string
           updated_at?: string
           year?: number
+        }
+        Relationships: []
+      }
+      research_media: {
+        Row: {
+          caption: string
+          created_at: string
+          credit: string
+          display_order: number
+          id: string
+          research_scale_id: string | null
+          type: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          caption: string
+          created_at?: string
+          credit: string
+          display_order?: number
+          id?: string
+          research_scale_id?: string | null
+          type: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          caption?: string
+          created_at?: string
+          credit?: string
+          display_order?: number
+          id?: string
+          research_scale_id?: string | null
+          type?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "research_media_research_scale_id_fkey"
+            columns: ["research_scale_id"]
+            isOneToOne: false
+            referencedRelation: "research_scales"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      research_publications: {
+        Row: {
+          created_at: string
+          display_order: number
+          full_title: string
+          id: string
+          link: string
+          research_scale_id: string | null
+          short_form: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          full_title: string
+          id?: string
+          link: string
+          research_scale_id?: string | null
+          short_form: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          full_title?: string
+          id?: string
+          link?: string
+          research_scale_id?: string | null
+          short_form?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "research_publications_research_scale_id_fkey"
+            columns: ["research_scale_id"]
+            isOneToOne: false
+            referencedRelation: "research_scales"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      research_scales: {
+        Row: {
+          color: string
+          created_at: string
+          description: string
+          detailed_description: string
+          display_order: number
+          icon_color: string
+          id: string
+          subtitle: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          description: string
+          detailed_description: string
+          display_order?: number
+          icon_color?: string
+          id?: string
+          subtitle: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          description?: string
+          detailed_description?: string
+          display_order?: number
+          icon_color?: string
+          id?: string
+          subtitle?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }

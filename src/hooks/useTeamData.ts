@@ -94,3 +94,53 @@ export const usePreLabPublications = () => {
     },
   });
 };
+
+// New hooks for research page data
+export const useResearchScales = () => {
+  return useQuery({
+    queryKey: ['research-scales'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('research_scales')
+        .select(`
+          *,
+          research_media(*),
+          research_publications(*)
+        `)
+        .order('display_order');
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+};
+
+export const useCollaborators = () => {
+  return useQuery({
+    queryKey: ['collaborators'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('collaborators')
+        .select('*')
+        .order('display_order');
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+};
+
+export const useFundingAgencies = () => {
+  return useQuery({
+    queryKey: ['funding-agencies'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('funding_agencies')
+        .select('*')
+        .order('display_order');
+      
+      if (error) throw error;
+      return data;
+    },
+  });
+};
