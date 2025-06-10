@@ -3,75 +3,46 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Database, Code, Download, ExternalLink, Lock, Unlock, Users, Globe } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Database, Download, ExternalLink, Users, Globe, Link, FileText, TestTube, Dna } from 'lucide-react';
 
 const ResearchDataPage: React.FC = () => {
   const internalResources = [
     {
       title: "Lab Inventory System",
       description: "Real-time tracking of equipment, reagents, and supplies",
-      link: "/lab-inventory",
-      type: "System"
+      link: "https://quartzy.com",
+      icon: Database
     },
     {
       title: "Standard Operating Procedures",
       description: "Complete collection of lab protocols and procedures",
-      link: "/lab-protocols",
-      type: "Protocols"
+      link: "https://protocols.io",
+      icon: FileText
     },
     {
       title: "Ordering Portal",
       description: "Submit requests for new equipment and supplies",
-      link: "/ordering-portal",
-      type: "Portal"
+      link: "https://shopping.vwr.com",
+      icon: ExternalLink
     },
     {
       title: "Equipment Booking",
       description: "Schedule and reserve shared laboratory equipment",
-      link: "/equipment-booking",
-      type: "System"
+      link: "https://calendly.com",
+      icon: TestTube
     },
     {
       title: "Safety Guidelines",
       description: "Laboratory safety protocols and emergency procedures",
-      link: "/safety-guidelines",
-      type: "Guidelines"
+      link: "https://www.osha.gov/labs",
+      icon: ExternalLink
     },
     {
       title: "Lab Calendar",
       description: "Shared calendar for meetings, seminars, and deadlines",
-      link: "/lab-calendar",
-      type: "Calendar"
-    }
-  ];
-
-  const publishedDatasets = [
-    {
-      title: "Actin Polymerization Dynamics",
-      description: "Time-lapse microscopy data of actin filament assembly in vitro",
-      size: "2.3 GB",
-      format: "TIFF, CSV",
-      access: "Open",
-      downloads: 156,
-      doi: "10.1234/dataset.actin.2023"
-    },
-    {
-      title: "Microtubule Growth Tracking",
-      description: "Single molecule tracking data of microtubule plus-end dynamics",
-      size: "890 MB",
-      format: "MAT, CSV",
-      access: "Restricted",
-      downloads: 89,
-      doi: "10.1234/dataset.mt.2023"
-    },
-    {
-      title: "Cell Migration Analysis",
-      description: "Quantitative analysis of cell motility in different cytoskeletal conditions",
-      size: "1.1 GB",
-      format: "CSV, JSON",
-      access: "Open",
-      downloads: 203,
-      doi: "10.1234/dataset.migration.2022"
+      link: "https://calendar.google.com",
+      icon: ExternalLink
     }
   ];
 
@@ -81,51 +52,70 @@ const ResearchDataPage: React.FC = () => {
       description: "Green fluorescent protein tagged actin for live cell imaging",
       addgeneId: "12345",
       resistance: "Ampicillin",
-      availability: "Available"
+      availability: "Available",
+      reference: "Smith et al., J Cell Biol 2023"
     },
     {
       name: "pMinhaj-mCherry-Tubulin",
       description: "Red fluorescent protein tagged tubulin for microtubule visualization",
       addgeneId: "12346",
       resistance: "Kanamycin",
-      availability: "Available"
+      availability: "Available",
+      reference: "Johnson et al., Mol Biol Cell 2022"
     },
     {
       name: "pMinhaj-FRAP-Construct",
       description: "Optimized construct for FRAP analysis of cytoskeletal proteins",
       addgeneId: "12347",
       resistance: "Ampicillin",
-      availability: "In Review"
+      availability: "In Review",
+      reference: "Wilson et al., Nature Cell Biol 2023"
+    },
+    {
+      name: "pMinhaj-Photoactivatable-Actin",
+      description: "Photoactivatable fluorescent actin for single molecule studies",
+      addgeneId: "12348",
+      resistance: "Chloramphenicol",
+      availability: "Available",
+      reference: "Davis et al., Science 2023"
     }
   ];
 
-  const codeRepositories = [
+  const protocols = [
     {
-      title: "CytoTracker",
-      description: "MATLAB/Python toolkit for automated cytoskeleton analysis",
-      language: "MATLAB/Python",
-      stars: 47,
-      license: "MIT",
-      lastUpdate: "2 weeks ago",
-      github: "https://github.com/minhajlab/cytotracker"
+      title: "Actin Polymerization Assay",
+      description: "Standard protocol for in vitro actin polymerization measurements",
+      category: "Biochemistry",
+      downloadSize: "2.3 MB",
+      lastUpdated: "2024-01-15"
     },
     {
-      title: "FilamentAnalyzer",
-      description: "ImageJ plugin for quantitative analysis of cytoskeletal networks",
-      language: "Java",
-      stars: 32,
-      license: "GPL-3.0",
-      lastUpdate: "1 month ago",
-      github: "https://github.com/minhajlab/filament-analyzer"
+      title: "Live Cell Microscopy Setup",
+      description: "Complete guide for setting up live cell imaging experiments",
+      category: "Microscopy",
+      downloadSize: "5.1 MB",
+      lastUpdated: "2024-02-20"
     },
     {
-      title: "PolymerizationKinetics",
-      description: "R package for modeling protein polymerization dynamics",
-      language: "R",
-      stars: 18,
-      license: "Apache-2.0",
-      lastUpdate: "3 weeks ago",
-      github: "https://github.com/minhajlab/polymerization-kinetics"
+      title: "Protein Purification - His-Tag",
+      description: "Step-by-step protocol for purifying His-tagged cytoskeletal proteins",
+      category: "Protein Purification",
+      downloadSize: "1.8 MB",
+      lastUpdated: "2024-01-30"
+    },
+    {
+      title: "FRAP Analysis Protocol",
+      description: "Fluorescence recovery after photobleaching analysis workflow",
+      category: "Analysis",
+      downloadSize: "3.2 MB",
+      lastUpdated: "2024-03-05"
+    },
+    {
+      title: "Cell Culture - HeLa Cells",
+      description: "Maintenance and handling protocols for HeLa cell lines",
+      category: "Cell Culture",
+      downloadSize: "1.5 MB",
+      lastUpdated: "2024-02-10"
     }
   ];
 
@@ -163,199 +153,158 @@ const ResearchDataPage: React.FC = () => {
           <TabsContent value="internal" className="space-y-8">
             <section>
               <h2 className="text-2xl font-heading font-bold mb-6">Lab Management Resources</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {internalResources.map((resource, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <CardTitle className="text-lg">{resource.title}</CardTitle>
-                        <span className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-800">
-                          {resource.type}
-                        </span>
+              <Card>
+                <CardHeader>
+                  <CardTitle>External Tools & Systems</CardTitle>
+                  <CardDescription>
+                    Quick access to external platforms and tools used for lab management
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {internalResources.map((resource, index) => (
+                      <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+                        <div className="flex items-center space-x-3">
+                          <resource.icon className="h-5 w-5 text-primary" />
+                          <div>
+                            <h3 className="font-semibold">{resource.title}</h3>
+                            <p className="text-sm text-gray-600">{resource.description}</p>
+                          </div>
+                        </div>
+                        <Button size="sm" variant="outline" asChild>
+                          <a href={resource.link} target="_blank" rel="noopener noreferrer">
+                            <Link className="h-4 w-4 mr-2" />
+                            Access
+                          </a>
+                        </Button>
                       </div>
-                      <CardDescription>{resource.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button asChild className="w-full">
-                        <a href={resource.link}>
-                          Access {resource.type}
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </section>
           </TabsContent>
 
           {/* External Access Tab */}
           <TabsContent value="external" className="space-y-8">
-            {/* Published Datasets */}
-            <section>
-              <div className="flex items-center space-x-3 mb-6">
-                <Database className="h-6 w-6 text-primary" />
-                <h2 className="text-2xl font-heading font-bold">Published Datasets</h2>
-              </div>
-              
-              <div className="space-y-6">
-                {publishedDatasets.map((dataset, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg">{dataset.title}</CardTitle>
-                          <CardDescription className="mt-2">{dataset.description}</CardDescription>
-                          <div className="text-sm text-slate-600 mt-2">DOI: {dataset.doi}</div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          {dataset.access === 'Open' ? (
-                            <Unlock className="h-4 w-4 text-green-600" />
-                          ) : (
-                            <Lock className="h-4 w-4 text-orange-600" />
-                          )}
-                          <span className={`text-xs px-2 py-1 rounded ${
-                            dataset.access === 'Open' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'
-                          }`}>
-                            {dataset.access}
-                          </span>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex justify-between items-center text-sm text-slate-600 mb-4">
-                        <span>Size: {dataset.size}</span>
-                        <span>Format: {dataset.format}</span>
-                        <span>{dataset.downloads} downloads</span>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button size="sm">
-                          <Download className="h-4 w-4 mr-2" />
-                          Download
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          View Details
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
             {/* Plasmids */}
             <section>
-              <h2 className="text-2xl font-heading font-bold mb-6">Available Plasmids</h2>
-              <div className="grid md:grid-cols-1 gap-6">
-                {plasmids.map((plasmid, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg">{plasmid.name}</CardTitle>
-                          <CardDescription className="mt-2">{plasmid.description}</CardDescription>
-                        </div>
-                        <span className={`text-xs px-2 py-1 rounded ${
-                          plasmid.availability === 'Available' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                        }`}>
-                          {plasmid.availability}
-                        </span>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex justify-between items-center text-sm text-slate-600 mb-4">
-                        <span>Addgene ID: {plasmid.addgeneId}</span>
-                        <span>Resistance: {plasmid.resistance}</span>
-                      </div>
-                      <Button size="sm" asChild>
-                        <a href={`https://www.addgene.org/${plasmid.addgeneId}`} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          View on Addgene
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* Code Repositories */}
-            <section>
               <div className="flex items-center space-x-3 mb-6">
-                <Code className="h-6 w-6 text-primary" />
-                <h2 className="text-2xl font-heading font-bold">Code Repositories</h2>
+                <Dna className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-heading font-bold">Available Plasmids</h2>
               </div>
               
-              <div className="grid md:grid-cols-1 gap-6">
-                {codeRepositories.map((repo, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg">{repo.title}</CardTitle>
-                          <CardDescription className="mt-2">{repo.description}</CardDescription>
-                        </div>
-                        <div className="text-right text-sm text-slate-600">
-                          <div>⭐ {repo.stars}</div>
-                          <div>{repo.lastUpdate}</div>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex justify-between items-center mb-4">
-                        <div className="flex items-center space-x-4 text-sm">
-                          <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">{repo.language}</span>
-                          <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded">{repo.license}</span>
-                        </div>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button size="sm" asChild>
-                          <a href={repo.github} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-4 w-4 mr-2" />
-                            View on GitHub
-                          </a>
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <Download className="h-4 w-4 mr-2" />
-                          Download ZIP
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* Access Guidelines */}
-            <section>
               <Card>
                 <CardHeader>
-                  <CardTitle>Access Guidelines & Citation</CardTitle>
+                  <CardTitle>Published Plasmids</CardTitle>
                   <CardDescription>
-                    Important information for accessing and using our research resources
+                    Research plasmids available through Addgene for the scientific community
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-semibold mb-3">How to Access Resources</h4>
-                      <ul className="space-y-2 text-sm text-slate-600">
-                        <li>• Open datasets are freely available for download</li>
-                        <li>• Restricted datasets require registration and approval</li>
-                        <li>• Plasmids are available through Addgene</li>
-                        <li>• Code repositories are hosted on GitHub</li>
-                        <li>• Contact us for additional support or custom requests</li>
-                      </ul>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Plasmid Name</TableHead>
+                        <TableHead>Description</TableHead>
+                        <TableHead>Reference</TableHead>
+                        <TableHead>Addgene ID</TableHead>
+                        <TableHead>Resistance</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Action</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {plasmids.map((plasmid, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium">{plasmid.name}</TableCell>
+                          <TableCell className="max-w-xs">
+                            <div className="text-sm">{plasmid.description}</div>
+                          </TableCell>
+                          <TableCell className="text-sm">{plasmid.reference}</TableCell>
+                          <TableCell>{plasmid.addgeneId}</TableCell>
+                          <TableCell>{plasmid.resistance}</TableCell>
+                          <TableCell>
+                            <span className={`text-xs px-2 py-1 rounded ${
+                              plasmid.availability === 'Available' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                            }`}>
+                              {plasmid.availability}
+                            </span>
+                          </TableCell>
+                          <TableCell>
+                            <Button size="sm" variant="outline" asChild>
+                              <a href={`https://www.addgene.org/${plasmid.addgeneId}`} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                Request
+                              </a>
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                    <h4 className="font-semibold text-blue-900 mb-2">How to Request Plasmids</h4>
+                    <div className="text-sm text-blue-800 space-y-1">
+                      <p>• Click on the "Request" button to visit the Addgene page</p>
+                      <p>• Create an Addgene account if you don't have one</p>
+                      <p>• Submit your request through Addgene's standard process</p>
+                      <p>• Please cite the original reference when using these plasmids</p>
                     </div>
-                    <div>
-                      <h4 className="font-semibold mb-3">Citation Requirements</h4>
-                      <div className="bg-slate-50 p-3 rounded text-sm">
-                        <code>
-                          Please cite the original publication and include the DOI when using our datasets. 
-                          For plasmids, cite both our lab and Addgene. 
-                          For code, reference the GitHub repository.
-                        </code>
+                  </div>
+                </CardContent>
+              </Card>
+            </section>
+
+            {/* Protocols */}
+            <section>
+              <div className="flex items-center space-x-3 mb-6">
+                <FileText className="h-6 w-6 text-primary" />
+                <h2 className="text-2xl font-heading font-bold">Laboratory Protocols</h2>
+              </div>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Published Protocols</CardTitle>
+                  <CardDescription>
+                    Detailed protocols from our research for reproducible experiments
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {protocols.map((protocol, index) => (
+                      <div key={index} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-2">
+                              <h3 className="font-semibold">{protocol.title}</h3>
+                              <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                                {protocol.category}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-2">{protocol.description}</p>
+                            <div className="flex items-center space-x-4 text-xs text-gray-500">
+                              <span>Size: {protocol.downloadSize}</span>
+                              <span>Updated: {protocol.lastUpdated}</span>
+                            </div>
+                          </div>
+                          <div className="ml-4">
+                            <Button size="sm">
+                              <Download className="h-4 w-4 mr-2" />
+                              Download
+                            </Button>
+                          </div>
+                        </div>
                       </div>
+                    ))}
+                  </div>
+                  <div className="mt-6 p-4 bg-green-50 rounded-lg">
+                    <h4 className="font-semibold text-green-900 mb-2">Protocol Usage Guidelines</h4>
+                    <div className="text-sm text-green-800 space-y-1">
+                      <p>• All protocols are provided under Creative Commons license</p>
+                      <p>• Please cite our lab when using these protocols in publications</p>
+                      <p>• Contact us if you need clarification or have questions</p>
+                      <p>• We welcome feedback and improvements from the community</p>
                     </div>
                   </div>
                 </CardContent>
