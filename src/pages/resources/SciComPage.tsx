@@ -2,34 +2,31 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Video, Film, ExternalLink, ShoppingCart } from 'lucide-react';
+import { BookOpen, Video, Film, ShoppingCart } from 'lucide-react';
+import { useScienceCommData } from '@/hooks/useResourcesData';
 
 const SciComPage: React.FC = () => {
-  const book = {
-    title: "The Dynamic Cell: Cytoskeleton in Focus",
-    description: "A comprehensive guide to understanding cellular dynamics and cytoskeletal organization. This book explores the fascinating world of cellular mechanics, from basic cytoskeletal components to complex regulatory networks that control cell shape, movement, and division. Written for students, researchers, and anyone interested in cell biology, it bridges fundamental concepts with cutting-edge research findings.",
-    thumbnail: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=600&fit=crop",
-    shopLink: "https://example.com/shop/dynamic-cell-book",
-    year: "2023",
-    pages: "312 pages"
-  };
+  const { data: sciCommData, isLoading, error } = useScienceCommData();
 
-  const video = {
-    title: "The Secret Life of Cells",
-    description: "Take a fascinating journey into the microscopic world of cellular mechanics and cytoskeletal dynamics. This educational video reveals how cells maintain their shape, move, and respond to their environment through the intricate dance of proteins and molecular motors. Perfect for students and educators looking to understand the fundamental processes that drive all life.",
-    embedId: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
-    duration: "15 min"
-  };
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
 
-  const film = {
-    title: "The Molecular Dance",
-    description: "A visually stunning short documentary that explores the beauty of protein interactions at the cellular level. Through advanced microscopy and artistic visualization, this film captures the elegant choreography of molecular processes that sustain life. Winner of the Science Film Festival 2023.",
-    embedId: "dQw4w9WgXcQ", // Replace with actual video embed ID
-    poster: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
-    year: "2023",
-    duration: "8 min",
-    awards: "Science Film Festival 2023 Winner"
-  };
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
+        <div className="text-center text-red-600">Error loading content</div>
+      </div>
+    );
+  }
+
+  const book = sciCommData?.find(item => item.type === 'book');
+  const video = sciCommData?.find(item => item.type === 'video');
+  const film = sciCommData?.find(item => item.type === 'film');
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
@@ -50,143 +47,155 @@ const SciComPage: React.FC = () => {
       
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Books Section */}
-        <section>
-          <div className="flex items-center space-x-3 mb-6">
-            <BookOpen className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-heading font-bold">Featured Book</h2>
-          </div>
-          
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-0">
-              <div className="flex flex-col lg:flex-row">
-                {/* Book Thumbnail */}
-                <div className="lg:w-1/3 p-6">
-                  <img 
-                    src={book.thumbnail} 
-                    alt={book.title}
-                    className="w-full max-w-xs mx-auto lg:max-w-none rounded-lg shadow-md"
-                  />
-                </div>
-                
-                {/* Book Details */}
-                <div className="lg:w-2/3 p-6">
-                  <CardHeader className="p-0 mb-4">
-                    <CardTitle className="text-2xl mb-2">{book.title}</CardTitle>
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
-                      <span>Published: {book.year}</span>
-                      <span>{book.pages}</span>
-                    </div>
-                  </CardHeader>
+        {book && (
+          <section>
+            <div className="flex items-center space-x-3 mb-6">
+              <BookOpen className="h-6 w-6 text-primary" />
+              <h2 className="text-2xl font-heading font-bold">Featured Book</h2>
+            </div>
+            
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-0">
+                <div className="flex flex-col lg:flex-row">
+                  {/* Book Thumbnail */}
+                  <div className="lg:w-1/3 p-6">
+                    <img 
+                      src={book.thumbnail_url || '/placeholder.svg'} 
+                      alt={book.title}
+                      className="w-full max-w-xs mx-auto lg:max-w-none rounded-lg shadow-md"
+                    />
+                  </div>
                   
-                  <CardDescription className="text-base mb-6 leading-relaxed">
-                    {book.description}
-                  </CardDescription>
-                  
-                  <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                    <a href={book.shopLink} target="_blank" rel="noopener noreferrer">
-                      <ShoppingCart className="h-5 w-5 mr-2" />
-                      Shop This Book
-                    </a>
-                  </Button>
+                  {/* Book Details */}
+                  <div className="lg:w-2/3 p-6">
+                    <CardHeader className="p-0 mb-4">
+                      <CardTitle className="text-2xl mb-2">{book.title}</CardTitle>
+                      <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
+                        {book.year && <span>Published: {book.year}</span>}
+                        {book.pages && <span>{book.pages}</span>}
+                      </div>
+                    </CardHeader>
+                    
+                    <CardDescription className="text-base mb-6 leading-relaxed">
+                      {book.description}
+                    </CardDescription>
+                    
+                    {book.shop_link && (
+                      <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                        <a href={book.shop_link} target="_blank" rel="noopener noreferrer">
+                          <ShoppingCart className="h-5 w-5 mr-2" />
+                          Shop This Book
+                        </a>
+                      </Button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+              </CardContent>
+            </Card>
+          </section>
+        )}
 
         {/* Educational Video Section */}
-        <section>
-          <div className="flex items-center space-x-3 mb-6">
-            <Video className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-heading font-bold">Featured Educational Video</h2>
-          </div>
-          
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6">
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                {/* Video Embed */}
-                <div className="aspect-video">
-                  <iframe
-                    className="w-full h-full rounded-lg"
-                    src={`https://www.youtube.com/embed/${video.embedId}`}
-                    title={video.title}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-                
-                {/* Video Description */}
-                <div>
-                  <CardHeader className="p-0 mb-4">
-                    <CardTitle className="text-2xl mb-2">{video.title}</CardTitle>
-                    <div className="text-sm text-muted-foreground">
-                      Duration: {video.duration}
-                    </div>
-                  </CardHeader>
-                  
-                  <CardDescription className="text-base leading-relaxed">
-                    {video.description}
-                  </CardDescription>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Short Film Section */}
-        <section>
-          <div className="flex items-center space-x-3 mb-6">
-            <Film className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-heading font-bold">Featured Short Film</h2>
-          </div>
-          
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6">
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                {/* Film Embed */}
-                <div className="space-y-4">
+        {video && (
+          <section>
+            <div className="flex items-center space-x-3 mb-6">
+              <Video className="h-6 w-6 text-primary" />
+              <h2 className="text-2xl font-heading font-bold">Featured Educational Video</h2>
+            </div>
+            
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="grid lg:grid-cols-2 gap-8 items-start">
+                  {/* Video Embed */}
                   <div className="aspect-video">
                     <iframe
                       className="w-full h-full rounded-lg"
-                      src={`https://www.youtube.com/embed/${film.embedId}`}
-                      title={film.title}
+                      src={`https://www.youtube.com/embed/${video.embed_id}`}
+                      title={video.title}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </div>
                   
-                  {/* Film Poster */}
-                  <div className="text-center">
-                    <img 
-                      src={film.poster} 
-                      alt={`${film.title} poster`}
-                      className="w-full max-w-sm mx-auto rounded-lg shadow-md"
-                    />
-                    <p className="text-sm text-muted-foreground mt-2">Official Poster</p>
+                  {/* Video Description */}
+                  <div>
+                    <CardHeader className="p-0 mb-4">
+                      <CardTitle className="text-2xl mb-2">{video.title}</CardTitle>
+                      {video.duration && (
+                        <div className="text-sm text-muted-foreground">
+                          Duration: {video.duration}
+                        </div>
+                      )}
+                    </CardHeader>
+                    
+                    <CardDescription className="text-base leading-relaxed">
+                      {video.description}
+                    </CardDescription>
                   </div>
                 </div>
-                
-                {/* Film Description */}
-                <div>
-                  <CardHeader className="p-0 mb-4">
-                    <CardTitle className="text-2xl mb-2">{film.title}</CardTitle>
-                    <div className="flex flex-col space-y-1 text-sm text-muted-foreground mb-4">
-                      <span>Year: {film.year}</span>
-                      <span>Duration: {film.duration}</span>
-                      <span className="text-golden font-medium">{film.awards}</span>
+              </CardContent>
+            </Card>
+          </section>
+        )}
+
+        {/* Short Film Section */}
+        {film && (
+          <section>
+            <div className="flex items-center space-x-3 mb-6">
+              <Film className="h-6 w-6 text-primary" />
+              <h2 className="text-2xl font-heading font-bold">Featured Short Film</h2>
+            </div>
+            
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="grid lg:grid-cols-2 gap-8 items-start">
+                  {/* Film Embed */}
+                  <div className="space-y-4">
+                    <div className="aspect-video">
+                      <iframe
+                        className="w-full h-full rounded-lg"
+                        src={`https://www.youtube.com/embed/${film.embed_id}`}
+                        title={film.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
                     </div>
-                  </CardHeader>
+                    
+                    {/* Film Poster */}
+                    {film.poster_url && (
+                      <div className="text-center">
+                        <img 
+                          src={film.poster_url} 
+                          alt={`${film.title} poster`}
+                          className="w-full max-w-sm mx-auto rounded-lg shadow-md"
+                        />
+                        <p className="text-sm text-muted-foreground mt-2">Official Poster</p>
+                      </div>
+                    )}
+                  </div>
                   
-                  <CardDescription className="text-base leading-relaxed">
-                    {film.description}
-                  </CardDescription>
+                  {/* Film Description */}
+                  <div>
+                    <CardHeader className="p-0 mb-4">
+                      <CardTitle className="text-2xl mb-2">{film.title}</CardTitle>
+                      <div className="flex flex-col space-y-1 text-sm text-muted-foreground mb-4">
+                        {film.year && <span>Year: {film.year}</span>}
+                        {film.duration && <span>Duration: {film.duration}</span>}
+                        {film.awards && <span className="text-golden font-medium">{film.awards}</span>}
+                      </div>
+                    </CardHeader>
+                    
+                    <CardDescription className="text-base leading-relaxed">
+                      {film.description}
+                    </CardDescription>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+              </CardContent>
+            </Card>
+          </section>
+        )}
 
         {/* About Section */}
         <section>

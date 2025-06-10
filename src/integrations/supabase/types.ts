@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      application_resources: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          display_order: number
+          id: string
+          link: string
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description: string
+          display_order?: number
+          id?: string
+          link: string
+          title: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          display_order?: number
+          id?: string
+          link?: string
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       application_steps: {
         Row: {
           created_at: string
@@ -275,6 +311,42 @@ export type Database = {
         }
         Relationships: []
       }
+      lab_management_resources: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          display_order: number
+          icon: string
+          id: string
+          link: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description: string
+          display_order?: number
+          icon: string
+          id?: string
+          link: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          display_order?: number
+          icon?: string
+          id?: string
+          link?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       lab_positions: {
         Row: {
           created_at: string
@@ -303,6 +375,45 @@ export type Database = {
           icon?: string
           id?: string
           position_type?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      online_courses: {
+        Row: {
+          created_at: string
+          description: string
+          display_order: number
+          duration: string
+          id: string
+          level: string
+          link: string
+          provider: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          display_order?: number
+          duration: string
+          id?: string
+          level: string
+          link: string
+          provider: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          display_order?: number
+          duration?: string
+          id?: string
+          level?: string
+          link?: string
+          provider?: string
           title?: string
           updated_at?: string
         }
@@ -471,6 +582,45 @@ export type Database = {
         }
         Relationships: []
       }
+      recommended_books: {
+        Row: {
+          authors: string
+          category: string
+          created_at: string
+          description: string
+          display_order: number
+          edition: string
+          id: string
+          link: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          authors: string
+          category: string
+          created_at?: string
+          description: string
+          display_order?: number
+          edition: string
+          id?: string
+          link: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          authors?: string
+          category?: string
+          created_at?: string
+          description?: string
+          display_order?: number
+          edition?: string
+          id?: string
+          link?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       research_media: {
         Row: {
           caption: string
@@ -514,6 +664,84 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      research_plasmids: {
+        Row: {
+          addgene_id: string
+          availability: string
+          created_at: string
+          description: string
+          display_order: number
+          id: string
+          name: string
+          reference: string
+          resistance: string
+          updated_at: string
+        }
+        Insert: {
+          addgene_id: string
+          availability: string
+          created_at?: string
+          description: string
+          display_order?: number
+          id?: string
+          name: string
+          reference: string
+          resistance: string
+          updated_at?: string
+        }
+        Update: {
+          addgene_id?: string
+          availability?: string
+          created_at?: string
+          description?: string
+          display_order?: number
+          id?: string
+          name?: string
+          reference?: string
+          resistance?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      research_protocols: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          display_order: number
+          download_size: string
+          file_url: string | null
+          id: string
+          last_updated: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          display_order?: number
+          download_size: string
+          file_url?: string | null
+          id?: string
+          last_updated: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          display_order?: number
+          download_size?: string
+          file_url?: string | null
+          id?: string
+          last_updated?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       research_publications: {
         Row: {
@@ -592,6 +820,99 @@ export type Database = {
           subtitle?: string
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      research_tools: {
+        Row: {
+          category: string
+          cost: string
+          created_at: string
+          description: string
+          display_order: number
+          id: string
+          link: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          cost: string
+          created_at?: string
+          description: string
+          display_order?: number
+          id?: string
+          link: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          cost?: string
+          created_at?: string
+          description?: string
+          display_order?: number
+          id?: string
+          link?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      science_communication: {
+        Row: {
+          awards: string | null
+          created_at: string
+          description: string
+          display_order: number
+          duration: string | null
+          embed_id: string | null
+          id: string
+          is_featured: boolean
+          pages: string | null
+          poster_url: string | null
+          shop_link: string | null
+          thumbnail_url: string | null
+          title: string
+          type: string
+          updated_at: string
+          year: string | null
+        }
+        Insert: {
+          awards?: string | null
+          created_at?: string
+          description: string
+          display_order?: number
+          duration?: string | null
+          embed_id?: string | null
+          id?: string
+          is_featured?: boolean
+          pages?: string | null
+          poster_url?: string | null
+          shop_link?: string | null
+          thumbnail_url?: string | null
+          title: string
+          type: string
+          updated_at?: string
+          year?: string | null
+        }
+        Update: {
+          awards?: string | null
+          created_at?: string
+          description?: string
+          display_order?: number
+          duration?: string | null
+          embed_id?: string | null
+          id?: string
+          is_featured?: boolean
+          pages?: string | null
+          poster_url?: string | null
+          shop_link?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          type?: string
+          updated_at?: string
+          year?: string | null
         }
         Relationships: []
       }

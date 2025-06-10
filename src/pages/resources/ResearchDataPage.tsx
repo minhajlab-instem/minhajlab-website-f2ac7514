@@ -5,119 +5,28 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Database, Download, ExternalLink, Users, Globe, Link, FileText, TestTube, Dna } from 'lucide-react';
+import { useLabManagementResources, useResearchPlasmids, useResearchProtocols } from '@/hooks/useResourcesData';
 
 const ResearchDataPage: React.FC = () => {
-  const internalResources = [
-    {
-      title: "Lab Inventory System",
-      description: "Real-time tracking of equipment, reagents, and supplies",
-      link: "https://quartzy.com",
-      icon: Database
-    },
-    {
-      title: "Standard Operating Procedures",
-      description: "Complete collection of lab protocols and procedures",
-      link: "https://protocols.io",
-      icon: FileText
-    },
-    {
-      title: "Ordering Portal",
-      description: "Submit requests for new equipment and supplies",
-      link: "https://shopping.vwr.com",
-      icon: ExternalLink
-    },
-    {
-      title: "Equipment Booking",
-      description: "Schedule and reserve shared laboratory equipment",
-      link: "https://calendly.com",
-      icon: TestTube
-    },
-    {
-      title: "Safety Guidelines",
-      description: "Laboratory safety protocols and emergency procedures",
-      link: "https://www.osha.gov/labs",
-      icon: ExternalLink
-    },
-    {
-      title: "Lab Calendar",
-      description: "Shared calendar for meetings, seminars, and deadlines",
-      link: "https://calendar.google.com",
-      icon: ExternalLink
-    }
-  ];
+  const { data: labResources, isLoading: loadingResources } = useLabManagementResources();
+  const { data: plasmids, isLoading: loadingPlasmids } = useResearchPlasmids();
+  const { data: protocols, isLoading: loadingProtocols } = useResearchProtocols();
 
-  const plasmids = [
-    {
-      name: "pMinhaj-GFP-Actin",
-      description: "Green fluorescent protein tagged actin for live cell imaging",
-      addgeneId: "12345",
-      resistance: "Ampicillin",
-      availability: "Available",
-      reference: "Smith et al., J Cell Biol 2023"
-    },
-    {
-      name: "pMinhaj-mCherry-Tubulin",
-      description: "Red fluorescent protein tagged tubulin for microtubule visualization",
-      addgeneId: "12346",
-      resistance: "Kanamycin",
-      availability: "Available",
-      reference: "Johnson et al., Mol Biol Cell 2022"
-    },
-    {
-      name: "pMinhaj-FRAP-Construct",
-      description: "Optimized construct for FRAP analysis of cytoskeletal proteins",
-      addgeneId: "12347",
-      resistance: "Ampicillin",
-      availability: "In Review",
-      reference: "Wilson et al., Nature Cell Biol 2023"
-    },
-    {
-      name: "pMinhaj-Photoactivatable-Actin",
-      description: "Photoactivatable fluorescent actin for single molecule studies",
-      addgeneId: "12348",
-      resistance: "Chloramphenicol",
-      availability: "Available",
-      reference: "Davis et al., Science 2023"
-    }
-  ];
+  const iconMap: { [key: string]: any } = {
+    Database,
+    FileText,
+    ExternalLink,
+    TestTube,
+    Link
+  };
 
-  const protocols = [
-    {
-      title: "Actin Polymerization Assay",
-      description: "Standard protocol for in vitro actin polymerization measurements",
-      category: "Biochemistry",
-      downloadSize: "2.3 MB",
-      lastUpdated: "2024-01-15"
-    },
-    {
-      title: "Live Cell Microscopy Setup",
-      description: "Complete guide for setting up live cell imaging experiments",
-      category: "Microscopy",
-      downloadSize: "5.1 MB",
-      lastUpdated: "2024-02-20"
-    },
-    {
-      title: "Protein Purification - His-Tag",
-      description: "Step-by-step protocol for purifying His-tagged cytoskeletal proteins",
-      category: "Protein Purification",
-      downloadSize: "1.8 MB",
-      lastUpdated: "2024-01-30"
-    },
-    {
-      title: "FRAP Analysis Protocol",
-      description: "Fluorescence recovery after photobleaching analysis workflow",
-      category: "Analysis",
-      downloadSize: "3.2 MB",
-      lastUpdated: "2024-03-05"
-    },
-    {
-      title: "Cell Culture - HeLa Cells",
-      description: "Maintenance and handling protocols for HeLa cell lines",
-      category: "Cell Culture",
-      downloadSize: "1.5 MB",
-      lastUpdated: "2024-02-10"
-    }
-  ];
+  if (loadingResources || loadingPlasmids || loadingProtocols) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
@@ -162,23 +71,26 @@ const ResearchDataPage: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {internalResources.map((resource, index) => (
-                      <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                        <div className="flex items-center space-x-3">
-                          <resource.icon className="h-5 w-5 text-primary" />
-                          <div>
-                            <h3 className="font-semibold">{resource.title}</h3>
-                            <p className="text-sm text-gray-600">{resource.description}</p>
+                    {labResources?.map((resource) => {
+                      const IconComponent = iconMap[resource.icon] || Link;
+                      return (
+                        <div key={resource.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+                          <div className="flex items-center space-x-3">
+                            <IconComponent className="h-5 w-5 text-primary" />
+                            <div>
+                              <h3 className="font-semibold">{resource.title}</h3>
+                              <p className="text-sm text-gray-600">{resource.description}</p>
+                            </div>
                           </div>
+                          <Button size="sm" variant="outline" asChild>
+                            <a href={resource.link} target="_blank" rel="noopener noreferrer">
+                              <Link className="h-4 w-4 mr-2" />
+                              Access
+                            </a>
+                          </Button>
                         </div>
-                        <Button size="sm" variant="outline" asChild>
-                          <a href={resource.link} target="_blank" rel="noopener noreferrer">
-                            <Link className="h-4 w-4 mr-2" />
-                            Access
-                          </a>
-                        </Button>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
@@ -215,14 +127,14 @@ const ResearchDataPage: React.FC = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {plasmids.map((plasmid, index) => (
-                        <TableRow key={index}>
+                      {plasmids?.map((plasmid) => (
+                        <TableRow key={plasmid.id}>
                           <TableCell className="font-medium">{plasmid.name}</TableCell>
                           <TableCell className="max-w-xs">
                             <div className="text-sm">{plasmid.description}</div>
                           </TableCell>
                           <TableCell className="text-sm">{plasmid.reference}</TableCell>
-                          <TableCell>{plasmid.addgeneId}</TableCell>
+                          <TableCell>{plasmid.addgene_id}</TableCell>
                           <TableCell>{plasmid.resistance}</TableCell>
                           <TableCell>
                             <span className={`text-xs px-2 py-1 rounded ${
@@ -233,7 +145,7 @@ const ResearchDataPage: React.FC = () => {
                           </TableCell>
                           <TableCell>
                             <Button size="sm" variant="outline" asChild>
-                              <a href={`https://www.addgene.org/${plasmid.addgeneId}`} target="_blank" rel="noopener noreferrer">
+                              <a href={`https://www.addgene.org/${plasmid.addgene_id}`} target="_blank" rel="noopener noreferrer">
                                 <ExternalLink className="h-4 w-4 mr-2" />
                                 Request
                               </a>
@@ -272,8 +184,8 @@ const ResearchDataPage: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {protocols.map((protocol, index) => (
-                      <div key={index} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    {protocols?.map((protocol) => (
+                      <div key={protocol.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
@@ -284,8 +196,8 @@ const ResearchDataPage: React.FC = () => {
                             </div>
                             <p className="text-sm text-gray-600 mb-2">{protocol.description}</p>
                             <div className="flex items-center space-x-4 text-xs text-gray-500">
-                              <span>Size: {protocol.downloadSize}</span>
-                              <span>Updated: {protocol.lastUpdated}</span>
+                              <span>Size: {protocol.download_size}</span>
+                              <span>Updated: {new Date(protocol.last_updated).toLocaleDateString()}</span>
                             </div>
                           </div>
                           <div className="ml-4">

@@ -1,170 +1,27 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { GraduationCap, BookOpen, Microscope, ExternalLink, FileText, Award, Download, Link } from 'lucide-react';
+import { GraduationCap, BookOpen, Microscope, ExternalLink, FileText, Award, Link } from 'lucide-react';
+import { 
+  useApplicationResources, 
+  useOnlineCourses, 
+  useRecommendedBooks, 
+  useResearchTools 
+} from '@/hooks/useResourcesData';
 
 const UsefulLinksPage: React.FC = () => {
-  const applicationResources = [
-    {
-      title: "PhD Application Guide",
-      description: "Comprehensive guide on applying to PhD programs in cell biology and biophysics",
-      link: "https://example.com/phd-guide",
-      type: "Guide"
-    },
-    {
-      title: "Writing a Strong Statement of Purpose",
-      description: "Tips and examples for crafting compelling SOPs for graduate school applications",
-      link: "https://example.com/sop-guide",
-      type: "Writing Guide"
-    },
-    {
-      title: "PostDoc Application Strategies",
-      description: "Navigate the postdoc application process with expert advice and timeline planning",
-      link: "https://example.com/postdoc-guide",
-      type: "Guide"
-    },
-    {
-      title: "Fellowship Opportunities Database",
-      description: "Curated list of fellowships for graduate students and postdocs in life sciences",
-      link: "https://example.com/fellowships",
-      type: "Database"
-    },
-    {
-      title: "Academic CV Templates",
-      description: "Professional CV templates specifically designed for academic careers",
-      link: "https://example.com/cv-templates",
-      type: "Templates"
-    },
-    {
-      title: "Interview Preparation Toolkit",
-      description: "Common questions and preparation strategies for PhD and postdoc interviews",
-      link: "https://example.com/interview-prep",
-      type: "Toolkit"
-    }
-  ];
+  const { data: applicationResources, isLoading: loadingResources } = useApplicationResources();
+  const { data: onlineCourses, isLoading: loadingCourses } = useOnlineCourses();
+  const { data: recommendedBooks, isLoading: loadingBooks } = useRecommendedBooks();
+  const { data: researchTools, isLoading: loadingTools } = useResearchTools();
 
-  const onlineCourses = [
-    {
-      title: "Introduction to Cell Biology",
-      provider: "MIT OpenCourseWare",
-      description: "Comprehensive introduction to cellular structure and function",
-      link: "https://ocw.mit.edu/courses/biology/",
-      duration: "12 weeks",
-      level: "Undergraduate"
-    },
-    {
-      title: "Principles of Microscopy",
-      provider: "iBiology",
-      description: "Fundamentals of light microscopy and advanced imaging techniques",
-      link: "https://ibiology.org/courses/microscopy/",
-      duration: "8 weeks",
-      level: "Graduate"
-    },
-    {
-      title: "Cytoskeleton Dynamics",
-      provider: "Coursera",
-      description: "Advanced course on cytoskeletal protein function and regulation",
-      link: "https://coursera.org/cytoskeleton",
-      duration: "6 weeks",
-      level: "Advanced"
-    },
-    {
-      title: "Biophysics Methods",
-      provider: "edX",
-      description: "Quantitative approaches to studying biological systems",
-      link: "https://edx.org/biophysics",
-      duration: "10 weeks",
-      level: "Graduate"
-    },
-    {
-      title: "Scientific Writing and Communication",
-      provider: "FutureLearn",
-      description: "Develop skills in scientific writing and presentation",
-      link: "https://futurelearn.com/sci-writing",
-      duration: "4 weeks",
-      level: "All Levels"
-    }
-  ];
-
-  const books = [
-    {
-      title: "Molecular Biology of the Cell",
-      authors: "Alberts, Johnson, Lewis, Morgan, Raff, Roberts, Walter",
-      description: "The definitive textbook for understanding cellular and molecular biology",
-      edition: "7th Edition",
-      link: "https://example.com/alberts",
-      category: "Cell Biology"
-    },
-    {
-      title: "Physical Biology of the Cell",
-      authors: "Phillips, Kondev, Theriot, Garcia",
-      description: "Quantitative approaches to understanding cellular phenomena",
-      edition: "2nd Edition",
-      link: "https://example.com/phillips",
-      category: "Biophysics"
-    },
-    {
-      title: "The Cytoskeleton: A Very Short Introduction",
-      authors: "Mullins",
-      description: "Concise overview of cytoskeletal structure and function",
-      edition: "1st Edition",
-      link: "https://example.com/mullins",
-      category: "Cytoskeleton"
-    },
-    {
-      title: "Introduction to Fluorescence Microscopy",
-      authors: "Waters",
-      description: "Practical guide to fluorescence microscopy techniques",
-      edition: "3rd Edition",
-      link: "https://example.com/waters",
-      category: "Microscopy"
-    }
-  ];
-
-  const researchTools = [
-    {
-      title: "ImageJ/FIJI",
-      description: "Open-source image processing and analysis software",
-      link: "https://imagej.net/",
-      category: "Image Analysis",
-      cost: "Free"
-    },
-    {
-      title: "CellProfiler",
-      description: "Cell image analysis software for identifying and measuring biological objects",
-      link: "https://cellprofiler.org/",
-      category: "Image Analysis",
-      cost: "Free"
-    },
-    {
-      title: "Imaris",
-      description: "3D/4D image processing and analysis software for microscopy data",
-      link: "https://imaris.oxinst.com/",
-      category: "3D Analysis",
-      cost: "Commercial"
-    },
-    {
-      title: "ChimeraX",
-      description: "Molecular visualization and analysis software",
-      link: "https://www.cgl.ucsf.edu/chimerax/",
-      category: "Molecular Visualization",
-      cost: "Free"
-    },
-    {
-      title: "Cytoscape",
-      description: "Network analysis and visualization software",
-      link: "https://cytoscape.org/",
-      category: "Network Analysis",
-      cost: "Free"
-    },
-    {
-      title: "GraphPad Prism",
-      description: "Statistical analysis and graphing software for scientific research",
-      link: "https://graphpad.com/",
-      category: "Statistics",
-      cost: "Commercial"
-    }
-  ];
+  if (loadingResources || loadingCourses || loadingBooks || loadingTools) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 animate-fade-in-up">
@@ -191,8 +48,8 @@ const UsefulLinksPage: React.FC = () => {
             <h2 className="text-2xl font-heading font-bold">Application Resources</h2>
           </div>
           <div className="space-y-4">
-            {applicationResources.map((resource, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+            {applicationResources?.map((resource) => (
+              <div key={resource.id} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
                 <div className="flex items-center space-x-4">
                   <FileText className="h-5 w-5 text-primary" />
                   <div>
@@ -221,8 +78,8 @@ const UsefulLinksPage: React.FC = () => {
             <h2 className="text-2xl font-heading font-bold">Online Courses</h2>
           </div>
           <div className="space-y-4">
-            {onlineCourses.map((course, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+            {onlineCourses?.map((course) => (
+              <div key={course.id} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
                 <div className="flex items-center space-x-4">
                   <GraduationCap className="h-5 w-5 text-primary" />
                   <div>
@@ -253,8 +110,8 @@ const UsefulLinksPage: React.FC = () => {
             <h2 className="text-2xl font-heading font-bold">Recommended Books</h2>
           </div>
           <div className="space-y-4">
-            {books.map((book, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+            {recommendedBooks?.map((book) => (
+              <div key={book.id} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
                 <div className="flex items-center space-x-4">
                   <BookOpen className="h-5 w-5 text-primary" />
                   <div>
@@ -285,8 +142,8 @@ const UsefulLinksPage: React.FC = () => {
             <h2 className="text-2xl font-heading font-bold">Essential Research Tools</h2>
           </div>
           <div className="space-y-4">
-            {researchTools.map((tool, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+            {researchTools?.map((tool) => (
+              <div key={tool.id} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
                 <div className="flex items-center space-x-4">
                   <Link className="h-5 w-5 text-primary" />
                   <div>
