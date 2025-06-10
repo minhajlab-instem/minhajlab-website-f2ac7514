@@ -1,9 +1,7 @@
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { GraduationCap, BookOpen, Microscope, ExternalLink, FileText, Award } from 'lucide-react';
+import { GraduationCap, BookOpen, Microscope, ExternalLink, FileText, Award, Download, Link } from 'lucide-react';
 
 const UsefulLinksPage: React.FC = () => {
   const applicationResources = [
@@ -185,198 +183,165 @@ const UsefulLinksPage: React.FC = () => {
         <div className="relative w-24 h-1 bg-primary mx-auto"></div>
       </div>
       
-      <div className="max-w-6xl mx-auto">
-        <Tabs defaultValue="applications" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="applications" className="flex items-center space-x-2">
-              <GraduationCap className="h-4 w-4" />
-              <span>Applications</span>
-            </TabsTrigger>
-            <TabsTrigger value="learning" className="flex items-center space-x-2">
-              <BookOpen className="h-4 w-4" />
-              <span>Learning</span>
-            </TabsTrigger>
-            <TabsTrigger value="tools" className="flex items-center space-x-2">
-              <Microscope className="h-4 w-4" />
-              <span>Research Tools</span>
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Applications Tab */}
-          <TabsContent value="applications" className="space-y-8">
-            <section>
-              <div className="flex items-center space-x-3 mb-6">
-                <Award className="h-6 w-6 text-primary" />
-                <h2 className="text-2xl font-heading font-bold">Application Resources</h2>
+      <div className="max-w-6xl mx-auto space-y-12">
+        {/* Application Resources */}
+        <section>
+          <div className="flex items-center space-x-3 mb-6">
+            <Award className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-heading font-bold">Application Resources</h2>
+          </div>
+          <div className="space-y-4">
+            {applicationResources.map((resource, index) => (
+              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-4">
+                  <FileText className="h-5 w-5 text-primary" />
+                  <div>
+                    <h3 className="font-semibold text-lg">{resource.title}</h3>
+                    <p className="text-muted-foreground">{resource.description}</p>
+                    <span className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-800 mt-1 inline-block">
+                      {resource.type}
+                    </span>
+                  </div>
+                </div>
+                <Button asChild size="sm">
+                  <a href={resource.link} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Access
+                  </a>
+                </Button>
               </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                {applicationResources.map((resource, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <CardTitle className="text-lg">{resource.title}</CardTitle>
-                        <span className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-800">
-                          {resource.type}
-                        </span>
-                      </div>
-                      <CardDescription>{resource.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button asChild size="sm">
-                        <a href={resource.link} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Access Resource
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-          </TabsContent>
+            ))}
+          </div>
+        </section>
 
-          {/* Learning Tab */}
-          <TabsContent value="learning" className="space-y-8">
-            {/* Online Courses */}
-            <section>
-              <h2 className="text-2xl font-heading font-bold mb-6">Online Courses</h2>
-              <div className="grid lg:grid-cols-1 gap-6">
-                {onlineCourses.map((course, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg">{course.title}</CardTitle>
-                          <CardDescription className="mt-1 text-primary font-medium">{course.provider}</CardDescription>
-                          <CardDescription className="mt-2">{course.description}</CardDescription>
-                        </div>
-                        <div className="text-right text-sm">
-                          <div className="px-2 py-1 bg-green-100 text-green-800 rounded mb-1">{course.level}</div>
-                          <div className="text-slate-600">{course.duration}</div>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <Button asChild size="sm">
-                        <a href={course.link} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Take Course
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* Recommended Books */}
-            <section>
-              <h2 className="text-2xl font-heading font-bold mb-6">Recommended Books</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                {books.map((book, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg">{book.title}</CardTitle>
-                          <CardDescription className="mt-1 font-medium">{book.authors}</CardDescription>
-                          <CardDescription className="mt-2">{book.description}</CardDescription>
-                        </div>
-                        <span className="text-xs px-2 py-1 rounded bg-purple-100 text-purple-800">
-                          {book.category}
-                        </span>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex justify-between items-center mb-4">
-                        <span className="text-sm text-slate-600">{book.edition}</span>
-                      </div>
-                      <Button asChild size="sm">
-                        <a href={book.link} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          View Book
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-          </TabsContent>
-
-          {/* Research Tools Tab */}
-          <TabsContent value="tools" className="space-y-8">
-            <section>
-              <h2 className="text-2xl font-heading font-bold mb-6">Essential Research Tools</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                {researchTools.map((tool, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-lg">{tool.title}</CardTitle>
-                          <CardDescription className="mt-2">{tool.description}</CardDescription>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-xs px-2 py-1 rounded bg-gray-100 text-gray-800 mb-1 block">
-                            {tool.category}
-                          </span>
-                          <span className={`text-xs px-2 py-1 rounded ${
-                            tool.cost === 'Free' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'
-                          }`}>
-                            {tool.cost}
-                          </span>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <Button asChild size="sm">
-                        <a href={tool.link} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Visit Website
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            {/* Getting Started Guide */}
-            <section>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Getting Started with Research Tools</CardTitle>
-                  <CardDescription>
-                    A beginner's guide to essential software and tools for cytoskeleton research
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-semibold mb-3">For Beginners</h4>
-                      <ul className="space-y-2 text-sm text-slate-600">
-                        <li>• Start with ImageJ/FIJI for basic image analysis</li>
-                        <li>• Learn GraphPad Prism for statistical analysis</li>
-                        <li>• Practice with online tutorials and sample data</li>
-                        <li>• Join user forums and communities for support</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-3">Advanced Users</h4>
-                      <ul className="space-y-2 text-sm text-slate-600">
-                        <li>• Explore specialized tools like CellProfiler and Imaris</li>
-                        <li>• Learn programming for custom analysis pipelines</li>
-                        <li>• Integrate multiple tools for comprehensive workflows</li>
-                        <li>• Contribute to open-source projects and tool development</li>
-                      </ul>
+        {/* Online Courses */}
+        <section>
+          <div className="flex items-center space-x-3 mb-6">
+            <BookOpen className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-heading font-bold">Online Courses</h2>
+          </div>
+          <div className="space-y-4">
+            {onlineCourses.map((course, index) => (
+              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-4">
+                  <GraduationCap className="h-5 w-5 text-primary" />
+                  <div>
+                    <h3 className="font-semibold text-lg">{course.title}</h3>
+                    <p className="text-primary font-medium text-sm">{course.provider}</p>
+                    <p className="text-muted-foreground">{course.description}</p>
+                    <div className="flex space-x-2 mt-1">
+                      <span className="text-xs px-2 py-1 bg-green-100 text-green-800 rounded">{course.level}</span>
+                      <span className="text-xs px-2 py-1 bg-gray-100 text-gray-800 rounded">{course.duration}</span>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </section>
-          </TabsContent>
-        </Tabs>
+                </div>
+                <Button asChild size="sm">
+                  <a href={course.link} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Take Course
+                  </a>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Recommended Books */}
+        <section>
+          <div className="flex items-center space-x-3 mb-6">
+            <BookOpen className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-heading font-bold">Recommended Books</h2>
+          </div>
+          <div className="space-y-4">
+            {books.map((book, index) => (
+              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-4">
+                  <BookOpen className="h-5 w-5 text-primary" />
+                  <div>
+                    <h3 className="font-semibold text-lg">{book.title}</h3>
+                    <p className="text-muted-foreground font-medium text-sm">{book.authors}</p>
+                    <p className="text-muted-foreground">{book.description}</p>
+                    <div className="flex space-x-2 mt-1">
+                      <span className="text-xs px-2 py-1 bg-purple-100 text-purple-800 rounded">{book.category}</span>
+                      <span className="text-xs text-slate-600">{book.edition}</span>
+                    </div>
+                  </div>
+                </div>
+                <Button asChild size="sm">
+                  <a href={book.link} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    View Book
+                  </a>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Research Tools */}
+        <section>
+          <div className="flex items-center space-x-3 mb-6">
+            <Microscope className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-heading font-bold">Essential Research Tools</h2>
+          </div>
+          <div className="space-y-4">
+            {researchTools.map((tool, index) => (
+              <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-4">
+                  <Link className="h-5 w-5 text-primary" />
+                  <div>
+                    <h3 className="font-semibold text-lg">{tool.title}</h3>
+                    <p className="text-muted-foreground">{tool.description}</p>
+                    <div className="flex space-x-2 mt-1">
+                      <span className="text-xs px-2 py-1 bg-gray-100 text-gray-800 rounded">{tool.category}</span>
+                      <span className={`text-xs px-2 py-1 rounded ${
+                        tool.cost === 'Free' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'
+                      }`}>
+                        {tool.cost}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <Button asChild size="sm">
+                  <a href={tool.link} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Visit Website
+                  </a>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Getting Started Guide */}
+        <section>
+          <div className="border rounded-lg p-6">
+            <h2 className="text-2xl font-heading font-bold mb-4">Getting Started with Research Tools</h2>
+            <p className="text-muted-foreground mb-6">
+              A beginner's guide to essential software and tools for cytoskeleton research
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-semibold mb-3">For Beginners</h4>
+                <ul className="space-y-2 text-sm text-slate-600">
+                  <li>• Start with ImageJ/FIJI for basic image analysis</li>
+                  <li>• Learn GraphPad Prism for statistical analysis</li>
+                  <li>• Practice with online tutorials and sample data</li>
+                  <li>• Join user forums and communities for support</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-3">Advanced Users</h4>
+                <ul className="space-y-2 text-sm text-slate-600">
+                  <li>• Explore specialized tools like CellProfiler and Imaris</li>
+                  <li>• Learn programming for custom analysis pipelines</li>
+                  <li>• Integrate multiple tools for comprehensive workflows</li>
+                  <li>• Contribute to open-source projects and tool development</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
